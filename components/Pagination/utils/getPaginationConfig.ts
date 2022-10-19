@@ -1,4 +1,4 @@
-import { Props } from '../index';
+import type { Props } from '../index';
 
 const getPaginationConfig = ({ p, count, total }: Props) => {
   if (p === 0 || total === 0) {
