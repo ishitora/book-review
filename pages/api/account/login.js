@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import jwt from 'jsonwebtoken';
 import nc from 'next-connect';
 import bcrypt from 'bcrypt';
@@ -6,7 +5,7 @@ import bcrypt from 'bcrypt';
 import dbConnect from '@/utils/dbConnect';
 import User from '@/models/User';
 
-const handler = nc<NextApiRequest, NextApiResponse>().post(async (req, res) => {
+const handler = nc().post(async (req, res) => {
   const { email, password } = req.body;
 
   await dbConnect();
@@ -27,7 +26,7 @@ const handler = nc<NextApiRequest, NextApiResponse>().post(async (req, res) => {
   };
 
   const token = jwt.sign(userForToken, process.env.JWT_SECRET, {
-    expiresIn: 60 * 60,
+    expiresIn: 60 * 60 * 24 * 2,
   });
 
   res.json({ token, accountData: user });

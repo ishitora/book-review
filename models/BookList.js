@@ -1,16 +1,6 @@
-import mongoose, { Schema, model, Types } from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
 
-interface IBookList {
-  title: string;
-  image: string;
-  books: [Types.ObjectId];
-  reviews: [Types.ObjectId];
-  author: Types.ObjectId;
-  description: string;
-  create_time: string;
-}
-
-const bookSchema = new Schema<IBookList>({
+const bookSchema = new Schema({
   title: { type: String, required: true },
   image: String,
   books: [

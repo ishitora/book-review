@@ -1,10 +1,9 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import nc from 'next-connect';
 import dbConnect from '@/utils/dbConnect';
 import User from '@/models/User';
 import bcrypt from 'bcrypt';
 
-const handler = nc<NextApiRequest, NextApiResponse>().post(async (req, res) => {
+const handler = nc().post(async (req, res) => {
   await dbConnect();
   const { name, password, email } = req.body;
   try {

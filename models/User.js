@@ -1,22 +1,6 @@
-import mongoose, { Schema, model, Types } from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
 
-interface IUser {
-  name: string;
-  avatar: string;
-  email: string;
-  passwordHash: string;
-  comment: string;
-  likes: number;
-  reviews: [Types.ObjectId];
-  books: {
-    want_to_read: [Types.ObjectId];
-    currently_reading: [Types.ObjectId];
-    read: [Types.ObjectId];
-  };
-  bookList: [Types.ObjectId];
-}
-
-const userSchema = new Schema<IUser>({
+const userSchema = new Schema({
   name: String,
   email: { type: String, unique: true },
   passwordHash: String,
@@ -62,5 +46,4 @@ userSchema.set('toJSON', {
   },
 });
 
-export default (mongoose.models['User'] as mongoose.Model<IUser>) ||
-  model<IUser>('User', userSchema);
+export default mongoose.models['User'] || model('User', userSchema);
