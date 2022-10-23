@@ -35,4 +35,4 @@ const bookSchema = new Schema<IBookList>({
 
 const BookList = model('BookList', bookSchema);
 
-module.exports = BookList;
+export default BookList;

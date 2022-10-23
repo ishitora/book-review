@@ -5,8 +5,8 @@ interface IUser {
   avatar: string;
   email: string;
   passwordHash: string;
-  comment: String;
-  likes: Number;
+  comment: string;
+  likes: number;
   reviews: [Types.ObjectId];
   books: {
     want_to_read: [Types.ObjectId];
@@ -21,41 +21,38 @@ const userSchema = new Schema<IUser>({
   email: { type: String, unique: true },
   passwordHash: String,
   avatar: String,
-  reviews: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Review',
-    },
-  ],
-  books: {
-    want_to_read: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Book',
-      },
-    ],
-    currently_reading: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Book',
-      },
-    ],
-    read: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Book',
-      },
-    ],
+  reviews: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Review',
+    default: [],
   },
-  bookList: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'BookList',
+
+  books: {
+    want_to_read: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: 'Book',
+      default: [],
     },
-  ],
+
+    currently_reading: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: 'Book',
+      default: [],
+    },
+
+    read: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: 'Book',
+      default: [],
+    },
+  },
+  bookList: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'BookList',
+    default: [],
+  },
 });
 
-const Review = model('User', userSchema);
 userSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = 'user_' + returnedObject._id.toString();
@@ -65,4 +62,5 @@ userSchema.set('toJSON', {
   },
 });
 
-module.exports = Review;
+export default (mongoose.models['User'] as mongoose.Model<IUser>) ||
+  model<IUser>('User', userSchema);

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import store from '@/utils/store';
@@ -6,15 +7,21 @@ import Layout from '@/components/Layout/Layout';
 import '../styles/reset.css';
 import '../styles/globals.css';
 
+import { getAccount } from '@/slices/accountSlice';
+
 function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    store.dispatch(getAccount());
+  }, []);
+
   return (
-    <ChakraProvider>
-      <Provider store={store}>
+    <Provider store={store}>
+      <ChakraProvider>
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </Provider>
-    </ChakraProvider>
+      </ChakraProvider>
+    </Provider>
   );
 }
 
