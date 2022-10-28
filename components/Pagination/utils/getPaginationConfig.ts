@@ -22,9 +22,9 @@ const getPaginationConfig = ({ p, count, total }: Props) => {
       pages.push(p + i);
     }
   }
-  console.log(pages, pages.sort());
+
   return {
-    pages: pages.sort(),
+    pages: pages.sort((a, b) => a - b),
     disablePre: p === 1,
     disableNext: p * count >= total,
   };
