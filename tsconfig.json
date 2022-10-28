@@ -8,7 +8,8 @@
       "@/hooks/*": ["hooks/*"],
       "@/slices/*": ["slices/*"],
       "@/servers/*": ["servers/*"],
-      "@/models/*": ["models/*"]
+      "@/models/*": ["models/*"],
+      "@/middlewares/*": ["middlewares/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -27,6 +28,22 @@
     "jsx": "preserve",
     "noImplicitAny": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "pages/api/search/[keyword].js",
+    "pages/api/review/[id].js",
+    "pages/api/book/[id].js",
+    "pages/api/account/signup.js",
+    "pages/api/account/login.js",
+    "pages/api/account/index.js",
+    "utils/dbConnect.js",
+    "middlewares/userExtractor.js",
+    "models/User.js",
+    "models/Review.js",
+    "models/BookList.js",
+    "models/Book.js"
+  ],
   "exclude": ["node_modules"]
 }

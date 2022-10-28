@@ -14,6 +14,7 @@ type Book = {
   };
 };
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+
 const Search = () => {
   const router = useRouter();
   const { keyword, p } = router.query;
@@ -38,22 +39,27 @@ const Search = () => {
 
   return (
     <div>
-      {data?.items?.map((book: Book) => (
-        <div key={book.id}>
+      {data?.books?.map((book: Book) => (
+        <div
+          key={book.id}
+          onClick={() => {
+            router.push(`/book/${book.id}`);
+          }}
+        >
           <Image
-            src={book?.volumeInfo?.imageLinks?.smallThumbnail}
+            src={book?.image}
             width={80}
             height={80}
-            alt={book.volumeInfo.title + ' image'}
+            alt={book.image + ' image'}
           />
 
-          {book.volumeInfo.title}
+          {book.title}
         </div>
       ))}
       <Pagination
         p={Number(p)}
-        total={data?.totalItems}
-        count={20}
+        total={data?.total}
+        count={10}
         changePage={changePage}
       />
     </div>
