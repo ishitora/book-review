@@ -1,24 +1,20 @@
 import React from 'react';
-import axios from 'axios';
 import useSWR from 'swr';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Pagination from '@/components/Pagination/index';
 import { Box, SkeletonCircle, SkeletonText } from '@chakra-ui/react';
-
-type Book = {
-  id: string;
-  volumeInfo: {
-    title: string;
-    imageLinks: { smallThumbnail: string };
-  };
-};
-const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+import { fetcher } from '@/servers/API';
+import { TBook } from '@/types/book';
+import BookCard from './components/BookCard';
 
 const Search = () => {
   const router = useRouter();
   const { keyword, p } = router.query;
-  const { data } = useSWR(`/api/search/${keyword}?p=${p}`, fetcher);
+
+  const { data } = useSWR<{ total: number; books: [TBook] }, Error>(
+    `/api/search/${keyword}?p=${p}`,
+    fetcher
+  );
 
   const changePage = (page: number) => {
     if (typeof keyword === 'string') {
@@ -38,31 +34,19 @@ const Search = () => {
   }
 
   return (
-    <div>
-      {data?.books?.map((book: Book) => (
-        <div
-          key={book.id}
-          onClick={() => {
-            router.push(`/book/${book.id}`);
-          }}
-        >
-          <Image
-            src={book?.image}
-            width={80}
-            height={80}
-            alt={book.image + ' image'}
-          />
-
-          {book.title}
-        </div>
-      ))}
+    <Box>
+      <Box>
+        {data?.books?.map((book) => (
+          <BookCard key={book.id} book={book} />
+        ))}
+      </Box>
       <Pagination
         p={Number(p)}
         total={data?.total}
         count={10}
         changePage={changePage}
       />
-    </div>
+    </Box>
   );
 };
 

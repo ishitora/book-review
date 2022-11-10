@@ -6,9 +6,8 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightElement,
-  Text,
 } from '@chakra-ui/react';
-
+import ErrorMessage from './ErrorMessage';
 type Props = {
   id?: string;
   type?: string;
@@ -54,6 +53,7 @@ const CustomInput = ({
           onChange={onChange}
           onBlur={onBlur}
           name={name}
+          isInvalid={Boolean(errorMessage)}
         />
         {rightElement?.ele && (
           <InputRightElement width={rightElement?.width}>
@@ -61,9 +61,7 @@ const CustomInput = ({
           </InputRightElement>
         )}
       </InputGroup>
-      <Text fontSize="12px" color="red" position="absolute">
-        {errorMessage}
-      </Text>
+      <ErrorMessage>{errorMessage}</ErrorMessage>
     </Box>
   );
 };

@@ -34,7 +34,6 @@ const Signup = () => {
   const {
     handleSubmit,
     control,
-    getValues,
     formState: { errors },
   } = useForm<SigninData>({
     mode: 'onTouched',
@@ -47,9 +46,10 @@ const Signup = () => {
     resolver: yupResolver(schema),
   });
   const onSubmit = handleSubmit((data) => {
-    dispatch(signup(data));
+    const { email, name, password } = data;
+    dispatch(signup({ email, name, password }));
   });
-  console.log('control', getValues());
+
   return (
     <Box
       sx={{
@@ -152,9 +152,7 @@ const Signup = () => {
         </Box>
         <Box>
           忘記密碼 已有帳號?
-          <Link href="/login">
-            <a> 登入</a>
-          </Link>
+          <Link href="/login">登入</Link>
         </Box>
 
         <Button type="submit">註冊</Button>

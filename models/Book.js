@@ -13,12 +13,6 @@ const bookSchema = new Schema({
   ISBN: String,
   pageCount: Number,
   textSnippet: String,
-  reviews: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'Review',
-    default: [],
-  },
-
   bookLists: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: 'BookList',
@@ -46,12 +40,19 @@ const bookSchema = new Schema({
   },
 });
 
+bookSchema.virtual('ratings', {
+  ref: 'Review',
+  localField: '_id',
+  foreignField: 'reference',
+});
+
 bookSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
     delete returnedObject.__v;
   },
+  virtuals: true,
 });
 
 export default mongoose.models['Book'] || model('Book', bookSchema);

@@ -25,6 +25,11 @@ const handler = nc().get(async (req, res) => {
 
   const findBooks = await Book.find({
     googleBookId: { $in: bookIds },
+  }).populate({
+    path: 'ratings',
+    transform: (doc) => {
+      return { rating: doc?.rating };
+    },
   });
 
   const findIds = findBooks.map((book) => book.googleBookId);
@@ -66,7 +71,14 @@ const handler = nc().get(async (req, res) => {
       });
 
       const saveBook = await newBook.save();
-      searchRes.books.push(saveBook);
+      searchRes.books.push(
+        saveBook.populate({
+          path: 'ratings',
+          transform: (doc) => {
+            return { rating: doc?.rating };
+          },
+        })
+      );
     }
   }
 

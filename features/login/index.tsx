@@ -72,9 +72,7 @@ const Login = () => {
         </Box>
         <Box>
           忘記密碼 還沒有帳號?
-          <Link href="/signup">
-            <a>註冊</a>
-          </Link>
+          <Link href="/signup">註冊</Link>
         </Box>
 
         <Button type="submit">登入</Button>

@@ -1,6 +1,6 @@
-import type { Props } from '../index';
+import type { PaginationConfig } from '../index';
 
-const getPaginationConfig = ({ p, count, total }: Props) => {
+const getPaginationConfig = ({ p, count, total }: PaginationConfig) => {
   if (p === 0 || total === 0) {
     return {
       pages: [1],

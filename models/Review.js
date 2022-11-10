@@ -9,7 +9,7 @@ const reviewSchema = new Schema({
   reference: { type: Schema.Types.ObjectId, refPath: 'model_type' },
   model_type: { type: String, enum: ['Book', 'BookList'], required: true },
   rating: Number,
-  comment: String,
+  content: String,
   likes: Number,
   create_time: String,
 });

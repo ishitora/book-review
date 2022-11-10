@@ -10,12 +10,10 @@ type LoginData = {
   password: string;
 };
 
-const schema = yup
-  .object({
-    email: yup.string().email('必須為合法信箱').required('必填'),
-    password: yup.string().required('必填'),
-  })
-  .required();
+const schema = yup.object({
+  email: yup.string().email('必須為合法信箱').required('必填'),
+  password: yup.string().required('必填'),
+});
 
 const useLoginForm = () => {
   const dispatch = useAppDispatch();

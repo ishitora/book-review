@@ -6,14 +6,14 @@ import accountServers from '@/servers/accountServers';
 
 export const signup = createAsyncThunk(
   'account/signup',
-  async (payload: object) => {
+  async (payload: { email: string; name: string; password: string }) => {
     return accountServers.signup(payload);
   }
 );
 
 export const login = createAsyncThunk(
   'account/login',
-  async (payload: object) => {
+  async (payload: { email: string; password: string }) => {
     return accountServers.login(payload).then((res) => {
       setCookie('token', 'Bearer ' + res?.token);
       return res?.accountData;

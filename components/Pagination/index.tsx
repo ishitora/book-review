@@ -9,14 +9,16 @@ import {
 
 import getPaginationConfig from './utils/getPaginationConfig';
 
-export type Props = {
-  changePage?: (p: number) => void;
+export interface PaginationConfig {
   p: number;
   count: number;
   total: number;
-};
+}
+export interface PaginationProps extends PaginationConfig {
+  changePage: (p: number) => void;
+}
 
-const Pagination = ({ p, count, total, changePage }: Props) => {
+const Pagination = ({ p, count, total, changePage }: PaginationProps) => {
   const { pages, disablePre, disableNext } = getPaginationConfig({
     p,
     count,
