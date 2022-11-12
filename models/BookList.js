@@ -20,7 +20,7 @@ const bookSchema = new Schema({
       ref: 'Review',
     },
   ],
-  create_time: String,
+  create_date: String,
 });
 
 const BookList = model('BookList', bookSchema);

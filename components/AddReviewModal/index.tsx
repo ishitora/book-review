@@ -23,7 +23,15 @@ import ErrorMessage from '@/components/common/ErrorMessage';
 
 import reviewServers from '@/servers/reviewServers';
 
-const AddReviewModal = ({ id }: { id: string }) => {
+const AddReviewModal = ({
+  id,
+  renderButton,
+}: {
+  id: string;
+  renderButton?: (
+    onClick: React.MouseEventHandler<HTMLButtonElement>
+  ) => React.ReactNode;
+}) => {
   const [isOpen, setIsOpen] = useBoolean();
 
   const schema = yup.object({
@@ -47,13 +55,19 @@ const AddReviewModal = ({ id }: { id: string }) => {
     control,
     formState: { errors },
   } = methods;
+
   const onSubmit = handleSubmit((data) => {
     reviewServers.addReview(id, data);
   });
 
   return (
     <>
-      <Button onClick={setIsOpen.on}>評論</Button>
+      {renderButton ? (
+        renderButton(setIsOpen.on)
+      ) : (
+        <Button onClick={setIsOpen.on}>評論</Button>
+      )}
+
       <Modal isOpen={isOpen} onClose={setIsOpen.off}>
         <ModalOverlay />
         <ModalContent>

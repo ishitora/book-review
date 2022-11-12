@@ -6,7 +6,7 @@ export const calculateAverageRating = (rating: number | Ratings): number => {
     return rating;
   }
 
-  if (!rating.length) {
+  if (!rating?.length) {
     return 0;
   }
   return rating.reduce((pre, cur) => pre + cur.rating, 0) / rating.length;

@@ -18,26 +18,6 @@ const bookSchema = new Schema({
     ref: 'BookList',
     default: [],
   },
-  readers: {
-    want_to_read: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-      },
-    ],
-    currently_reading: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-      },
-    ],
-    read: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-      },
-    ],
-  },
 });
 
 bookSchema.virtual('ratings', {

@@ -9,7 +9,7 @@ const handler = nc().get(async (req, res) => {
   const book = await Book.findById(req.query.id).populate({
     path: 'ratings',
     transform: (doc) => {
-      return { rating: doc?.rating };
+      return doc?.rating ? { rating: doc?.rating } : doc;
     },
   });
 

@@ -61,11 +61,14 @@ const RatingHistogram = ({
 const Ratings = ({ ratings = [] }: { ratings: Ratings }) => {
   const ratingsCounts = calculateRatingsCounts(ratings);
   const averageRating = calculateAverageRating(ratings);
+
   return (
     <div>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <RatingDisplay rating={ratings} size={36} />
-        <Text fontSize="20px">{averageRating.toFixed(1)}分</Text>
+        <Text fontSize="20px">
+          {ratings.length > 0 ? `${averageRating.toFixed(1)}分` : '尚無評分'}
+        </Text>
       </Box>
       <Text fontSize="20px">{ratingsCounts.total}個評分</Text>
 

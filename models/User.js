@@ -1,4 +1,5 @@
 import mongoose, { Schema, model } from 'mongoose';
+import { format } from 'date-fns';
 
 const userSchema = new Schema({
   name: String,
@@ -10,26 +11,25 @@ const userSchema = new Schema({
     ref: 'Review',
     default: [],
   },
-
-  books: {
-    want_to_read: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: 'Book',
-      default: [],
+  myBooks: [
+    {
+      book: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Book',
+      },
+      status: {
+        type: Number,
+        enum: [0, 1, 2], //0:want_to_read 1:currently_reading 2:read
+      },
+      create_date: {
+        //加入書櫃日期
+        type: String,
+        default: format(new Date(), 'yyyy-MM-dd'),
+      },
+      start_date: String, //開始閱讀日期
+      finish_date: String, //讀完書的日期
     },
-
-    currently_reading: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: 'Book',
-      default: [],
-    },
-
-    read: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: 'Book',
-      default: [],
-    },
-  },
+  ],
   bookList: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: 'BookList',

@@ -33,7 +33,6 @@ const handler = nc()
       rating: rating,
       content: content,
       likes: 0,
-      create_time: format(new Date(), 'yyyy-MM-dd HH:mm'),
     });
 
     await review.save();

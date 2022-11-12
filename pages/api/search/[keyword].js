@@ -2,6 +2,7 @@ import nc from 'next-connect';
 import axios from 'axios';
 import dbConnect from '@/utils/dbConnect';
 import Book from '@/models/Book';
+import Review from '@/models/Review';
 
 const handler = nc().get(async (req, res) => {
   const response = await axios.get(

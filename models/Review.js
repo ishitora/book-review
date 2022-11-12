@@ -1,4 +1,5 @@
 import mongoose, { Schema, model } from 'mongoose';
+import { format } from 'date-fns';
 
 const reviewSchema = new Schema({
   user: {
@@ -11,7 +12,10 @@ const reviewSchema = new Schema({
   rating: Number,
   content: String,
   likes: Number,
-  create_time: String,
+  create_date: {
+    type: String,
+    default: format(new Date(), 'yyyy-MM-dd'),
+  },
 });
 
 reviewSchema.set('toJSON', {
