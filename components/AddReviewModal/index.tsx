@@ -1,7 +1,5 @@
 import React from 'react';
-import { useForm, Controller, FormProvider } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+import { Controller, FormProvider } from 'react-hook-form';
 import Rating from '@/components/Ratings/Rating';
 import {
   Modal,
@@ -12,7 +10,6 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
-  useBoolean,
   Textarea,
   Text,
   Box,
@@ -20,55 +17,39 @@ import {
 
 import Input from '@/components/common/Input';
 import ErrorMessage from '@/components/common/ErrorMessage';
-
-import reviewServers from '@/servers/reviewServers';
-
-const AddReviewModal = ({
-  id,
-  renderButton,
-}: {
+import useReviewForm from './hooks/useReviewForm';
+type AddReviewModalProps = {
   id: string;
   renderButton?: (
     onClick: React.MouseEventHandler<HTMLButtonElement>
   ) => React.ReactNode;
-}) => {
-  const [isOpen, setIsOpen] = useBoolean();
+  afterSubmit?: () => void;
+};
 
-  const schema = yup.object({
-    rating: yup.number().typeError('請選擇評分'),
-    title: yup.string().required('必填'),
-    content: yup.string().required('必填'),
-  });
-
-  const methods = useForm({
-    mode: 'onTouched',
-    defaultValues: {
-      rating: null,
-      title: '',
-      content: '',
-    },
-    resolver: yupResolver(schema),
-  });
-
+const AddReviewModal = ({
+  id,
+  renderButton,
+  afterSubmit,
+}: AddReviewModalProps) => {
   const {
-    handleSubmit,
+    isOpen,
+    handleOpen,
+    handleClose,
+    methods,
+    onSubmit,
     control,
-    formState: { errors },
-  } = methods;
-
-  const onSubmit = handleSubmit((data) => {
-    reviewServers.addReview(id, data);
-  });
+    errors,
+  } = useReviewForm(id, afterSubmit);
 
   return (
     <>
       {renderButton ? (
-        renderButton(setIsOpen.on)
+        renderButton(handleOpen)
       ) : (
-        <Button onClick={setIsOpen.on}>評論</Button>
+        <Button onClick={handleOpen}>評論</Button>
       )}
 
-      <Modal isOpen={isOpen} onClose={setIsOpen.off}>
+      <Modal isOpen={isOpen} onClose={handleClose}>
         <ModalOverlay />
         <ModalContent>
           <FormProvider {...methods}>
@@ -123,7 +104,7 @@ const AddReviewModal = ({
             </ModalBody>
 
             <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={setIsOpen.off}>
+              <Button variant="ghost" mr={3} onClick={handleClose}>
                 取消
               </Button>
               <Button colorScheme="blue" onClick={onSubmit}>
