@@ -23,3 +23,5 @@ export type TBookDetail = {
   pageCount?: number;
   ratings: Ratings;
 };
+
+export type BookStatus = 0 | 1 | 2;

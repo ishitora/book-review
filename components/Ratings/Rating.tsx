@@ -99,11 +99,11 @@ export const RatingDisplay = ({
     >
       {scoreArr.map((starIndex) => {
         return displayRating >= starIndex.score ? (
-          <MdOutlineStar color="#FFA41C" />
+          <MdOutlineStar color="#FFA41C" key={starIndex.score} />
         ) : starIndex.score - displayRating <= 0.5 ? (
-          <MdStarHalf color="#FFA41C" />
+          <MdStarHalf color="#FFA41C" key={starIndex.score} />
         ) : (
-          <MdStarOutline color="#aaa" />
+          <MdStarOutline color="#aaa" key={starIndex.score} />
         );
       })}
     </Box>

@@ -31,7 +31,7 @@ const useLoginForm = () => {
     resolver: yupResolver(schema),
   });
   const onSubmit = handleSubmit((data) => {
-    dispatch(login(data)).then((res) => {
+    dispatch(login(data)).then(() => {
       router.push('/');
     });
   });

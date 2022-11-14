@@ -1,8 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '@/utils/store';
-import { setCookie } from 'cookies-next';
+import { setCookie, deleteCookie } from 'cookies-next';
 import accountServers from '@/servers/accountServers';
+
+import bookServers from '@/servers/bookServers';
 
 export const signup = createAsyncThunk(
   'account/signup',
@@ -21,13 +23,43 @@ export const login = createAsyncThunk(
   }
 );
 
+export const logout = createAsyncThunk('account/logout', () => {
+  deleteCookie('token');
+  return;
+});
+
 export const getAccount = createAsyncThunk('account/getAccount', async () => {
   return accountServers.getAccount();
 });
 
+export const changeBookshelf = createAsyncThunk(
+  'account/changeBookshelf',
+  async (payload: { id: string; newStatus: 0 | 1 | 2 }) => {
+    return bookServers
+      .changeBookshelf(payload.id, payload.newStatus)
+      .then((res) => {
+        return res;
+      });
+  }
+);
+
+export const removeFromBookshelf = createAsyncThunk(
+  'account/removeFromBookshelf',
+  async (payload: { id: string }) => {
+    return bookServers.removeBook(payload.id).then(() => {
+      return { id: payload.id };
+    });
+  }
+);
+
 interface Account {
   isLogin: boolean;
-  info: any;
+  info: {
+    myBooks: {
+      status: 0 | 1 | 2;
+      book: string;
+    }[];
+  } | null;
 }
 
 const initialState: Account = {
@@ -40,12 +72,12 @@ export const accountSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      state.isLogin = false;
-      state.info = null;
+      state = initialState;
+      return state;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(signup.fulfilled, (state, action) => {
+    builder.addCase(signup.fulfilled, (state) => {
       state.isLogin = true;
     });
 
@@ -54,13 +86,33 @@ export const accountSlice = createSlice({
       state.info = action.payload;
     });
 
+    builder.addCase(logout.fulfilled, (state) => {
+      state = initialState;
+      return state;
+    });
+
     builder.addCase(getAccount.fulfilled, (state, action) => {
       state.isLogin = true;
       state.info = action.payload;
     });
+
+    builder.addCase(changeBookshelf.fulfilled, (state, action) => {
+      if (state.info) {
+        state.info.myBooks = state.info.myBooks.filter(
+          (b) => b.book !== action.payload.book
+        );
+        state.info.myBooks.push(action.payload);
+      }
+    });
+
+    builder.addCase(removeFromBookshelf.fulfilled, (state, action) => {
+      if (state.info) {
+        state.info.myBooks = state.info.myBooks.filter(
+          (b) => b.book !== action.payload.id
+        );
+      }
+    });
   },
 });
-
-export const { logout } = accountSlice.actions;
 
 export default accountSlice.reducer;

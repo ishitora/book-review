@@ -7,14 +7,25 @@ const Description = ({ description }: Props) => {
   const descriptionRef = useRef<HTMLDivElement>(null);
   const [isViewAll, setIsViewAll] = useState(false);
   const [isMoreThen4Lines, setIsMoreThen4Lines] = useState(false);
+
   useEffect(() => {
-    if (descriptionRef.current && descriptionRef.current?.offsetHeight > 100) {
-      setIsMoreThen4Lines(true);
-    }
+    const checkIsMoreThen4Lines = () => {
+      setIsMoreThen4Lines(
+        descriptionRef.current && descriptionRef.current?.offsetHeight > 100
+          ? true
+          : false
+      );
+    };
+
+    checkIsMoreThen4Lines();
+    window.addEventListener('resize', checkIsMoreThen4Lines);
+    return () => {
+      window.removeEventListener('resize', checkIsMoreThen4Lines);
+    };
   }, []);
 
   return (
-    <Box>
+    <>
       <Box
         sx={{
           maxHeight: isViewAll ? descriptionRef.current?.offsetHeight : '100px',
@@ -56,7 +67,7 @@ const Description = ({ description }: Props) => {
           查看全部
         </Button>
       )}
-    </Box>
+    </>
   );
 };
 

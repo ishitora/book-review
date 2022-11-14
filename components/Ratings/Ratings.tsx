@@ -31,10 +31,11 @@ const RatingHistogram = ({
       </Box>
       <Box
         sx={{
+          flex: 1,
           margin: '0 12px',
           backgroundColor: '#eee',
-          width: '300px',
-          height: '30px',
+          maxWidth: '300px',
+          height: '20px',
           borderRadius: '15px',
           position: 'relative',
           overflow: 'hidden',
@@ -44,7 +45,7 @@ const RatingHistogram = ({
           sx={{
             backgroundColor: '#FFA41C',
             position: 'absolute',
-            height: '30px',
+            height: '20px',
             left: 0,
             borderRadius: '15px',
             width: total ? `${(ratingCount / total) * 100}%` : 0,
@@ -63,7 +64,7 @@ const Ratings = ({ ratings = [] }: { ratings: Ratings }) => {
   const averageRating = calculateAverageRating(ratings);
 
   return (
-    <div>
+    <Box>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <RatingDisplay rating={ratings} size={36} />
         <Text fontSize="20px">
@@ -80,7 +81,7 @@ const Ratings = ({ ratings = [] }: { ratings: Ratings }) => {
           total={ratingsCounts.total}
         />
       ))}
-    </div>
+    </Box>
   );
 };
 
