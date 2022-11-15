@@ -25,6 +25,8 @@ type Props = {
   value: string;
   name?: string;
   errorMessage?: string;
+  noHelpText?: boolean;
+  size?: 'lg' | 'md' | 'sm' | 'xs';
 };
 
 const CustomInput = ({
@@ -37,10 +39,12 @@ const CustomInput = ({
   onBlur,
   name,
   errorMessage,
+  noHelpText,
+  size,
 }: Props) => {
   return (
     <Box>
-      <InputGroup>
+      <InputGroup size={size || 'md'}>
         {leftElement?.ele && (
           <InputLeftElement width={leftElement?.width}>
             {leftElement.ele}
@@ -54,6 +58,8 @@ const CustomInput = ({
           onBlur={onBlur}
           name={name}
           isInvalid={Boolean(errorMessage)}
+          sx={{ backgroundColor: '#fff' }}
+          size={size || 'md'}
         />
         {rightElement?.ele && (
           <InputRightElement width={rightElement?.width}>
@@ -61,7 +67,7 @@ const CustomInput = ({
           </InputRightElement>
         )}
       </InputGroup>
-      <ErrorMessage>{errorMessage}</ErrorMessage>
+      {!noHelpText && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </Box>
   );
 };

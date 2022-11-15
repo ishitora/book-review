@@ -34,7 +34,6 @@ const handler = nc()
           }
           break;
       }
-      await user.save();
     } else {
       findBook = {
         book: book._id,
@@ -44,9 +43,22 @@ const handler = nc()
         finish_date: status === 2 ? format(new Date(), 'yyyy-MM-dd') : '',
       };
       user.myBooks.push(findBook);
-      await user.save();
     }
-
+    await user.save();
+    findBook = await user.populate({
+      path: 'myBooks',
+      populate: {
+        path: 'book',
+        model: 'Book',
+        select: ['title', 'authors', 'image'],
+        match: { book: book._id },
+        populate: {
+          path: 'ratings',
+          select: 'rating -reference',
+          match: { user: user._id },
+        },
+      },
+    }).myBooks[0];
     res.json(findBook);
   })
   .delete(async (req, res) => {

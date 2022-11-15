@@ -1,3 +1,3 @@
 export default function Home() {
-    return <div>index</div>;
+  return <div>首頁</div>;
 }

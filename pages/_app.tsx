@@ -7,6 +7,7 @@ import Layout from '@/components/Layout/Layout';
 import '../styles/reset.css';
 import '../styles/globals.css';
 
+import theme from '@/utils/theme';
 import { getAccount } from '@/slices/accountSlice';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -16,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <Provider store={store}>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <Layout>
           <Component {...pageProps} />
         </Layout>

@@ -29,7 +29,7 @@ const Pagination = ({ p, count, total, changePage }: PaginationProps) => {
     <Box display="flex">
       <Box m="0 auto" display="flex" gap="8px">
         <IconButton
-          aria-label="Search database"
+          aria-label="first page"
           icon={<ArrowLeftIcon />}
           disabled={disablePre}
           onClick={() => {
@@ -37,7 +37,7 @@ const Pagination = ({ p, count, total, changePage }: PaginationProps) => {
           }}
         />
         <IconButton
-          aria-label="Search database"
+          aria-label="previous page"
           icon={<ChevronLeftIcon h={7} w={7} />}
           disabled={disablePre}
           onClick={() => {
@@ -48,7 +48,7 @@ const Pagination = ({ p, count, total, changePage }: PaginationProps) => {
         {pages.map((page) => (
           <Button
             key={page}
-            colorScheme={page === Number(p) ? 'blue' : 'gray'}
+            colorScheme={page === Number(p) ? 'primary' : 'gray'}
             onClick={() => {
               changePage(page);
             }}
@@ -58,7 +58,7 @@ const Pagination = ({ p, count, total, changePage }: PaginationProps) => {
         ))}
 
         <IconButton
-          aria-label="Search database"
+          aria-label="next page"
           icon={<ChevronRightIcon h={7} w={7} />}
           disabled={disableNext}
           onClick={() => {
@@ -66,7 +66,7 @@ const Pagination = ({ p, count, total, changePage }: PaginationProps) => {
           }}
         />
         <IconButton
-          aria-label="Search database"
+          aria-label="last page"
           icon={<ArrowRightIcon />}
           disabled={disableNext}
           onClick={() => {

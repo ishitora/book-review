@@ -18,7 +18,9 @@ import type { TReview } from '@/types/review';
 const BookDetail = ({ book }: { book: TBookDetail }) => {
   const myBooks = useAppSelector((state) => state.account?.info?.myBooks) || [];
 
-  const findStatus = myBooks.find((myBook) => myBook.book === book.id)?.status;
+  const findStatus = myBooks.find(
+    (myBook) => myBook.book.id === book.id
+  )?.status;
   const status = typeof findStatus === 'number' ? findStatus : null;
 
   const { data: reviews } = useSWR<TReview[], Error>(

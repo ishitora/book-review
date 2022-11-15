@@ -2,34 +2,48 @@ import React from 'react';
 import Link from 'next/link';
 
 import { Controller } from 'react-hook-form';
-import { Box, Button } from '@chakra-ui/react';
+import { Box, Button, Heading } from '@chakra-ui/react';
 import { MdVpnKey, MdMail } from 'react-icons/md';
 import Input from '@/components/common/Input';
 
-import useLoginForm from './useLoginForm';
+import useLoginForm from './hooks/useLoginForm';
 
 const Login = () => {
   const { onSubmit, control, errors } = useLoginForm();
 
   return (
     <Box
+      bgColor="gray.100"
       sx={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        '&>form': {
-          flex: '0 0 500px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          '&>div + div': {
-            marginTop: '16px',
-          },
-        },
+        padding: '40px',
       }}
     >
-      <form onSubmit={onSubmit}>
-        <h4>使用帳號登入book review</h4>
+      <Box
+        as="form"
+        sx={{
+          flex: '0 0 350px',
+          height: '400px',
+          display: 'flex',
+          flexDirection: 'column',
+          backgroundColor: 'white',
+          borderRadius: '20px',
+          padding: '30px 60px',
+        }}
+        onSubmit={onSubmit}
+      >
+        <Heading
+          as="h3"
+          size="lg"
+          sx={{
+            marginBottom: '20px',
+          }}
+        >
+          登入book review
+        </Heading>
+
         <Box>
           信箱
           <Controller
@@ -45,6 +59,7 @@ const Login = () => {
                 value={value}
                 onBlur={onBlur}
                 onChange={onChange}
+                size="lg"
               />
             )}
           />
@@ -66,17 +81,18 @@ const Login = () => {
                 onBlur={onBlur}
                 onChange={onChange}
                 name={name}
+                size="lg"
               />
             )}
           />
         </Box>
         <Box>
-          忘記密碼 還沒有帳號?
+          <Link href="/forgotPassword">忘記密碼</Link>還沒有帳號?
           <Link href="/signup">註冊</Link>
         </Box>
 
         <Button type="submit">登入</Button>
-      </form>
+      </Box>
     </Box>
   );
 };

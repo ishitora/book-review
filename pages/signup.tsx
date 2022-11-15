@@ -1,3 +1,3 @@
-import Signup from '@/features/signup';
+import Signup from '@/features/auth/signup';
 
 export default Signup;

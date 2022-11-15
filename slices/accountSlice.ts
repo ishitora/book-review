@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import type { RootState } from '@/utils/store';
+
 import { setCookie, deleteCookie } from 'cookies-next';
 import accountServers from '@/servers/accountServers';
 
 import bookServers from '@/servers/bookServers';
+import type { TBookDetail } from '@/types/book';
 
 export const signup = createAsyncThunk(
   'account/signup',
@@ -55,9 +55,10 @@ export const removeFromBookshelf = createAsyncThunk(
 interface Account {
   isLogin: boolean;
   info: {
+    name: string;
     myBooks: {
       status: 0 | 1 | 2;
-      book: string;
+      book: Pick<TBookDetail, 'id' | 'image' | 'ratings'>;
     }[];
   } | null;
 }
@@ -108,7 +109,7 @@ export const accountSlice = createSlice({
     builder.addCase(removeFromBookshelf.fulfilled, (state, action) => {
       if (state.info) {
         state.info.myBooks = state.info.myBooks.filter(
-          (b) => b.book !== action.payload.id
+          (b) => b.book.id !== action.payload.id
         );
       }
     });

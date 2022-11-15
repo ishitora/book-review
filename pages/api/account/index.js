@@ -10,7 +10,21 @@ const handler = nc({
 })
   .use(userExtractor)
   .get(async (req, res) => {
-    res.json(req.user);
+    const user = req.user;
+    await user.populate({
+      path: 'myBooks',
+      populate: {
+        path: 'book',
+        model: 'Book',
+        select: ['title', 'authors', 'image'],
+        populate: {
+          path: 'ratings',
+          select: 'rating -reference',
+          match: { user: user._id },
+        },
+      },
+    });
+    res.json(user);
   });
 
 export default handler;
