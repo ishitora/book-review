@@ -1,8 +1,7 @@
 import React from 'react';
 import { Box } from '@chakra-ui/react';
-type Props = {};
 
-const Footer = (props: Props) => {
+const Footer = () => {
   return (
     <Box
       as="footer"
