@@ -5,7 +5,7 @@ import { MdStarOutline, MdOutlineStar, MdStarHalf } from 'react-icons/md';
 import ErrorMessage from '@/components/common/ErrorMessage';
 import { calculateAverageRating } from './utils/index';
 
-import type { Ratings } from './types';
+import type { TRating } from './types';
 
 type Props = { name: string; errorMessage?: string | undefined };
 const scoreArr = [
@@ -83,7 +83,7 @@ export const RatingDisplay = ({
   rating,
   size = 24,
 }: {
-  rating: number | Ratings;
+  rating: number | TRating[];
   size?: number;
 }) => {
   const displayRating = calculateAverageRating(rating);

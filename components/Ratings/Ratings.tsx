@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Text } from '@chakra-ui/react';
-import type { Ratings } from './types';
+import type { TRating } from './types';
 import { calculateRatingsCounts, calculateAverageRating } from './utils/index';
 import { RatingDisplay } from './Rating';
 
@@ -59,7 +59,7 @@ const RatingHistogram = ({
   );
 };
 
-const Ratings = ({ ratings = [] }: { ratings: Ratings }) => {
+const Ratings = ({ ratings = [] }: { ratings: TRating[] }) => {
   const ratingsCounts = calculateRatingsCounts(ratings);
   const averageRating = calculateAverageRating(ratings);
 

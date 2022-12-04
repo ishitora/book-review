@@ -1,7 +1,7 @@
-import type { Ratings } from '../types';
+import type { TRating } from '../types';
 
 //可傳入評分或評分陣列，回傳評分或平均評分
-export const calculateAverageRating = (rating: number | Ratings): number => {
+export const calculateAverageRating = (rating: number | TRating[]): number => {
   if (typeof rating === 'number') {
     return rating;
   }
@@ -13,7 +13,7 @@ export const calculateAverageRating = (rating: number | Ratings): number => {
 };
 
 export const calculateRatingsCounts = (
-  rating: Ratings
+  rating: TRating[]
 ): { total: number; ratings: [number, number, number, number, number] } => {
   return {
     ratings: rating.reduce(

@@ -1,4 +1,4 @@
-import type { Ratings } from '@/components/Ratings/types';
+import type { TRating } from '@/components/Ratings/types';
 
 export type TBookDetail = {
   id: string;
@@ -12,7 +12,7 @@ export type TBookDetail = {
   description: string;
   price?: number;
   pageCount?: number;
-  ratings: Ratings;
+  ratings: TRating[];
 };
 
 export type BookStatus = 0 | 1 | 2;

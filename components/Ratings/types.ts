@@ -1,1 +1,1 @@
-export type Ratings = { rating: number }[];
+export type TRating = { rating: number };
