@@ -1,0 +1,15 @@
+@media (max-width: 600px) {
+  html {
+    font-size: 87.5%;
+  }
+}
+
+#__next {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main > div {
+  min-height: 90vh;
+}
