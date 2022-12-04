@@ -5,7 +5,7 @@ import { Box, Text, Stack, Button, Heading } from '@chakra-ui/react';
 import { useAppSelector } from '@/hooks/redux';
 
 import AddReviewModal from '@/components/AddReviewModal';
-import AddToBookshelfModal from '../../components/BookStatusDialog';
+import BookStatusDialog from '../../components/BookStatusDialog';
 import Description from './components/Description';
 import Review from '@/components/common/Review';
 import Ratings from '@/components/Ratings/Ratings';
@@ -67,7 +67,7 @@ const BookDetail = ({ book }: { book: TBookDetail }) => {
                 style={{ objectFit: 'cover' }}
               />
             </Box>
-            <AddToBookshelfModal id={book.id} status={status} />
+            <BookStatusDialog id={book.id} status={status} />
             <AddReviewModal
               renderButton={(onClick) => (
                 <Button onClick={onClick}>新增評論</Button>
@@ -102,7 +102,7 @@ const BookDetail = ({ book }: { book: TBookDetail }) => {
           {book.price && <Text>建議售價:{book.price}</Text>}
           {book.pageCount && <Text> 頁數:{book.pageCount}</Text>}
         </Stack>
-        <Box sx={{ gridArea: 'other' }}>0人想看 0人正在閱讀 0人已看過</Box>
+        {/* <Box sx={{ gridArea: 'other' }}>0人想看 0人正在閱讀 0人已看過</Box> */}
         <Box sx={{ gridArea: 'description' }}>
           <Box sx={{ padding: '20px 0' }}>
             <Heading as="h4" size="md">

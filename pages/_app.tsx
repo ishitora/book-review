@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
+
 import { Provider } from 'react-redux';
 import store from '@/utils/store';
 import { ChakraProvider } from '@chakra-ui/react';

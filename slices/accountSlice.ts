@@ -4,7 +4,7 @@ import { setCookie, deleteCookie } from 'cookies-next';
 import accountServers from '@/servers/accountServers';
 
 import bookServers from '@/servers/bookServers';
-import type { TBookDetail } from '@/types/book';
+import type { TMyBook } from '@/types/book';
 
 export const signup = createAsyncThunk(
   'account/signup',
@@ -56,10 +56,7 @@ interface Account {
   isLogin: boolean;
   info: {
     name: string;
-    myBooks: {
-      status: 0 | 1 | 2;
-      book: Pick<TBookDetail, 'id' | 'image' | 'ratings'>;
-    }[];
+    myBooks: TMyBook[];
   } | null;
 }
 
@@ -99,10 +96,7 @@ export const accountSlice = createSlice({
 
     builder.addCase(changeBookshelf.fulfilled, (state, action) => {
       if (state.info) {
-        state.info.myBooks = state.info.myBooks.filter(
-          (b) => b.book !== action.payload.book
-        );
-        state.info.myBooks.push(action.payload);
+        state.info.myBooks = action.payload;
       }
     });
 

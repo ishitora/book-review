@@ -20,6 +20,8 @@ const handler = nc().get(async (req, res) => {
     }
   );
   await dbConnect();
+
+  console.log('google圖書結果', response.data);
   const books = response?.data.items;
 
   const bookIds = books.map((book) => book.id);
@@ -73,7 +75,7 @@ const handler = nc().get(async (req, res) => {
 
       const saveBook = await newBook.save();
       searchRes.books.push(
-        saveBook.populate({
+        await saveBook.populate({
           path: 'ratings',
           transform: (doc) => {
             return { rating: doc?.rating };

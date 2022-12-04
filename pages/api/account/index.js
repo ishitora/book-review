@@ -1,6 +1,8 @@
 import nc from 'next-connect';
 
 import userExtractor from '@/middlewares/userExtractor';
+import Book from '@/models/Book';
+import Review from '@/models/Review';
 
 const handler = nc({
   onError: (err, req, res) => {

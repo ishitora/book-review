@@ -1,3 +1,12 @@
+import Head from 'next/head';
+
 export default function Home() {
-  return <div>首頁</div>;
+  return (
+    <>
+      <Head>
+        <title>book review</title>
+      </Head>
+      <div>首頁</div>
+    </>
+  );
 }

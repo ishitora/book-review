@@ -45,21 +45,21 @@ const handler = nc()
       user.myBooks.push(findBook);
     }
     await user.save();
-    findBook = await user.populate({
+    const newUser = await user.populate({
       path: 'myBooks',
       populate: {
         path: 'book',
         model: 'Book',
         select: ['title', 'authors', 'image'],
-        match: { book: book._id },
+        // match: { book: book._id },
         populate: {
           path: 'ratings',
           select: 'rating -reference',
           match: { user: user._id },
         },
       },
-    }).myBooks[0];
-    res.json(findBook);
+    });
+    res.json(newUser.myBooks);
   })
   .delete(async (req, res) => {
     await dbConnect();

@@ -12,7 +12,6 @@ import {
 } from '@chakra-ui/react';
 
 import useBookStatus from './hooks/useBookStatus';
-import { MdCheck } from 'react-icons/md';
 import type { BookStatus } from '@/types/book';
 
 const buttonText = {
@@ -24,18 +23,26 @@ const buttonText = {
 type Props = {
   id: string;
   status: BookStatus | null;
+  renderButton?: (
+    onClick: React.MouseEventHandler<HTMLButtonElement>
+  ) => React.ReactNode;
 };
 
-const BookStatusDialog = ({ id, status }: Props) => {
+const BookStatusDialog = ({ id, status, renderButton }: Props) => {
   const { isOpen, handleOpen, handleClose, handleClick, removeBook } =
     useBookStatus(id, status);
   const cancelRef = useRef<HTMLButtonElement>(null);
 
   return (
     <>
-      <Button onClick={handleOpen}>
-        {typeof status === 'number' ? buttonText[status] : '加入書櫃'}
-      </Button>
+      {renderButton ? (
+        renderButton(handleOpen)
+      ) : (
+        <Button onClick={handleOpen}>
+          {typeof status === 'number' ? buttonText[status] : '加入書櫃'}
+        </Button>
+      )}
+
       <AlertDialog
         leastDestructiveRef={cancelRef}
         motionPreset="slideInBottom"
@@ -52,19 +59,19 @@ const BookStatusDialog = ({ id, status }: Props) => {
             <Stack spacing="16px">
               <Button
                 onClick={handleClick(0)}
-                {...(status === 0 && { rightIcon: <MdCheck /> })}
+                variant={status === 0 ? 'solid' : 'outline'}
               >
                 想讀
               </Button>
               <Button
                 onClick={handleClick(1)}
-                {...(status === 1 && { rightIcon: <MdCheck /> })}
+                variant={status === 1 ? 'solid' : 'outline'}
               >
                 正在閱讀
               </Button>
               <Button
                 onClick={handleClick(2)}
-                {...(status === 2 && { rightIcon: <MdCheck /> })}
+                variant={status === 2 ? 'solid' : 'outline'}
               >
                 已完成
               </Button>

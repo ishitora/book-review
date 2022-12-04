@@ -5,3 +5,9 @@ export const CATEGORIES = {
   MEDICAL: '醫學',
   'Comics & Graphic Novels': '漫畫與視覺小說',
 };
+
+export const bookshelfStatus = {
+  0: '想看',
+  1: '閱讀中',
+  2: '已看過',
+};

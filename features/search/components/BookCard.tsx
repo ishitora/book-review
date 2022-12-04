@@ -4,9 +4,8 @@ import Image from 'next/image';
 
 import { Box } from '@chakra-ui/react';
 import { RatingDisplay } from '@/components/Ratings/Rating';
-import { TBookCard } from '../types';
-
-const BookCard = ({ book }: { book: TBookCard }) => {
+import { TSearchBook } from '@/types/book';
+const BookCard = ({ book }: { book: TSearchBook }) => {
   const router = useRouter();
   return (
     <Box
@@ -31,7 +30,6 @@ const BookCard = ({ book }: { book: TBookCard }) => {
           router.push(`/book/${book.id}`);
         }}
       >
-        {' '}
         {book.title}
       </a>
 

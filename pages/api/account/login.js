@@ -4,7 +4,8 @@ import bcrypt from 'bcrypt';
 
 import dbConnect from '@/utils/dbConnect';
 import User from '@/models/User';
-
+import Book from '@/models/Book';
+import Review from '@/models/Review';
 const handler = nc().post(async (req, res) => {
   const { email, password } = req.body;
 
@@ -29,7 +30,20 @@ const handler = nc().post(async (req, res) => {
     expiresIn: 60 * 60 * 24 * 2,
   });
 
-  res.json({ token, accountData: user });
+  const accountData = await user.populate({
+    path: 'myBooks',
+    populate: {
+      path: 'book',
+      model: 'Book',
+      select: ['title', 'authors', 'image'],
+      populate: {
+        path: 'ratings',
+        select: 'rating -reference',
+        match: { user: user._id },
+      },
+    },
+  });
+  res.json({ token, accountData });
 });
 
 export default handler;

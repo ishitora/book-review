@@ -4,15 +4,15 @@ import { useRouter } from 'next/router';
 import Pagination from '@/components/Pagination/index';
 import { Box, SkeletonCircle, SkeletonText } from '@chakra-ui/react';
 import { fetcher } from '@/servers/API';
-import { TBook } from '@/types/book';
+import { TSearchBook } from '@/types/book';
 import BookCard from './components/BookCard';
 
 const Search = () => {
   const router = useRouter();
   const { keyword, p } = router.query;
 
-  const { data } = useSWR<{ total: number; books: [TBook] }, Error>(
-    `/api/search/${keyword}?p=${p}`,
+  const { data } = useSWR<{ total: number; books: TSearchBook[] }, Error>(
+    keyword && p ? `/api/search/${keyword}?p=${p}` : null,
     fetcher
   );
 
