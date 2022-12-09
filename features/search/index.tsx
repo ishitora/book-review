@@ -13,7 +13,7 @@ const Search = () => {
 
   const { data } = useSWR<{ total: number; books: TSearchBook[] }, Error>(
     keyword && p ? `/api/search/${keyword}?p=${p}` : null,
-    fetcher
+    fetcher<any>
   );
 
   const changePage = (page: number) => {

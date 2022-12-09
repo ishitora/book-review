@@ -21,7 +21,7 @@ type Props = {
     ele: React.ReactNode;
   };
   onChange: (...event: [React.ChangeEvent]) => void;
-  onKeyPress: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onBlur?: Noop;
   value: string;
   name?: string;

@@ -1,23 +1,19 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
 import { setCookie, deleteCookie } from 'cookies-next';
+
 import accountServers from '@/servers/accountServers';
-
 import bookServers from '@/servers/bookServers';
-import type { TMyBook } from '@/types/book';
 
-export const signup = createAsyncThunk(
-  'account/signup',
-  async (payload: { email: string; name: string; password: string }) => {
-    return accountServers.signup(payload);
-  }
-);
+import { getReviews } from './reviewsSlice';
+
+import type { TMyBook } from '@/types/book';
 
 export const login = createAsyncThunk(
   'account/login',
-  async (payload: { email: string; password: string }) => {
+  async (payload: { email: string; password: string }, { dispatch }) => {
     return accountServers.login(payload).then((res) => {
       setCookie('token', 'Bearer ' + res?.token);
+      dispatch(getReviews());
       return res?.accountData;
     });
   }
@@ -28,9 +24,15 @@ export const logout = createAsyncThunk('account/logout', () => {
   return;
 });
 
-export const getAccount = createAsyncThunk('account/getAccount', async () => {
-  return accountServers.getAccount();
-});
+export const getAccount = createAsyncThunk(
+  'account/getAccount',
+  async (_, { dispatch }) => {
+    return accountServers.getAccount().then((res) => {
+      dispatch(getReviews());
+      return res;
+    });
+  }
+);
 
 export const changeBookshelf = createAsyncThunk(
   'account/changeBookshelf',
@@ -75,10 +77,6 @@ export const accountSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(signup.fulfilled, (state) => {
-      state.isLogin = true;
-    });
-
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLogin = true;
       state.info = action.payload;

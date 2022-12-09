@@ -1,12 +1,14 @@
 import API from './API';
-import { TBookDetail } from '@/types/book';
+import { TBookDetail, TMyBook } from '@/types/book';
 
 const getBookData = (id: string) => {
   return API.get<TBookDetail>(`/api/book/${id}`).then((res) => res.data);
 };
 
 const changeBookshelf = (id: string, status: 0 | 1 | 2) => {
-  return API.put(`/api/bookshelf/${id}`, { status }).then((res) => res.data);
+  return API.put<TMyBook[]>(`/api/bookshelf/${id}`, { status }).then(
+    (res) => res.data
+  );
 };
 
 const removeBook = (id: string) => {

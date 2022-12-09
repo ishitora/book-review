@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import accountReducer from '@/slices/accountSlice';
-
+import reviewsReducer from '@/slices/reviewsSlice';
 const store = configureStore({
   reducer: {
     account: accountReducer,
+    reviews: reviewsReducer,
   },
 });
 

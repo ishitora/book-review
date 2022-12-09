@@ -1,10 +1,27 @@
-import axios from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
-const API = axios.create({
+const axiosInstance = axios.create({
   baseURL: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`,
   timeout: 10000,
 });
 
+const api = (axios: AxiosInstance) => {
+  return {
+    get: <T>(url: string, config: AxiosRequestConfig = {}) =>
+      axios.get<T>(url, config),
+    delete: <T>(url: string, config: AxiosRequestConfig = {}) =>
+      axios.delete<T>(url, config),
+    post: <T>(url: string, body: unknown, config: AxiosRequestConfig = {}) =>
+      axios.post<T>(url, body, config),
+    patch: <T>(url: string, body: unknown, config: AxiosRequestConfig = {}) =>
+      axios.patch<T>(url, body, config),
+    put: <T>(url: string, body: unknown, config: AxiosRequestConfig = {}) =>
+      axios.put<T>(url, body, config),
+  };
+};
+const API = api(axiosInstance);
+
 export default API;
 
-export const fetcher = (url: string) => API.get(url).then((res) => res.data);
+export const fetcher = <T>(url: string) =>
+  API.get<T>(url).then((res) => res.data);
