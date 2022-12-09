@@ -17,7 +17,7 @@ const RatingHistogram = ({
     <Box
       sx={{
         display: 'flex',
-        '&:not(:first-child)': {
+        '&:not(:first-of-type)': {
           marginTop: '12px',
         },
       }}

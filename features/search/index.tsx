@@ -35,7 +35,7 @@ const Search = () => {
 
   return (
     <Box>
-      <Box>
+      <Box sx={{ padding: '20px 0' }}>
         {data?.books?.map((book) => (
           <BookCard key={book.id} book={book} />
         ))}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, KeyboardEvent } from 'react';
 import Image from 'next/image';
 import {
   Box,
@@ -30,6 +30,12 @@ const Header = () => {
     if (keyword.trim() !== '') {
       router.push(`/search/${keyword.trim()}?p=1`);
       setKeyword('');
+    }
+  };
+
+  const handlePress = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
     }
   };
 
@@ -89,6 +95,7 @@ const Header = () => {
           placeholder="搜尋書本"
           value={keyword}
           onChange={handleChange}
+          onKeyPress={handlePress}
           rightElement={{
             width: '70px',
             ele: <MdSearch onClick={handleSearch} />,

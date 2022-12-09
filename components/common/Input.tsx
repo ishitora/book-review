@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { KeyboardEvent } from 'react';
 import type { Noop } from 'react-hook-form';
 import {
   Box,
@@ -21,6 +21,7 @@ type Props = {
     ele: React.ReactNode;
   };
   onChange: (...event: [React.ChangeEvent]) => void;
+  onKeyPress: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onBlur?: Noop;
   value: string;
   name?: string;
@@ -36,6 +37,9 @@ const CustomInput = ({
   leftElement,
   rightElement,
   onChange,
+  onKeyPress = () => {
+    return;
+  },
   onBlur,
   name,
   errorMessage,
@@ -55,6 +59,7 @@ const CustomInput = ({
           type={type}
           placeholder={placeholder}
           onChange={onChange}
+          onKeyPress={onKeyPress}
           onBlur={onBlur}
           name={name}
           isInvalid={Boolean(errorMessage)}

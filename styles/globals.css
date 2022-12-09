@@ -3,6 +3,9 @@
     font-size: 87.5%;
   }
 }
+a {
+  cursor: pointer;
+}
 
 #__next {
   display: flex;
