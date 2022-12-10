@@ -32,7 +32,7 @@ const useLoginForm = () => {
   });
   const onSubmit = handleSubmit((data) => {
     dispatch(login(data)).then(() => {
-      router.push('/');
+      router.push('/bookshelf');
     });
   });
 

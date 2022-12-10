@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import type { AppProps } from 'next/app';
-import Head from 'next/head';
-
+import { useRouter } from 'next/router';
 import { Provider } from 'react-redux';
 import store from '@/utils/store';
 import { ChakraProvider } from '@chakra-ui/react';
@@ -13,6 +12,17 @@ import theme from '@/utils/theme';
 import { getAccount } from '@/slices/accountSlice';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (
+      !store.getState().account?.isLogin &&
+      !(router.asPath === '/login' || router.asPath === '/signup')
+    ) {
+      router.push('/login');
+    }
+  }, [router]);
+
   useEffect(() => {
     store.dispatch(getAccount());
   }, []);

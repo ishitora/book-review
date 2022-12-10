@@ -17,7 +17,7 @@ const BookList = ({ books, page, changePage }: Props) => {
       <Box
         sx={{
           margin: '20px auto',
-          maxWidth: '1200px',
+          maxWidth: 'min(1000px,100%)',
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill,minmax(150px,1fr))',
           gap: '16px',

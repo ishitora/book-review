@@ -11,3 +11,9 @@ export const bookshelfStatus = {
   1: '閱讀中',
   2: '已看過',
 };
+
+export const pathName = {
+  '/search': '探索',
+  '/book': '閱讀中',
+  2: '已看過',
+};

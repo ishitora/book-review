@@ -14,9 +14,8 @@ import {
 } from '@chakra-ui/react';
 
 import History from './components/History';
-type Props = {};
 
-const MyBook = (props: Props) => {
+const MyBook = () => {
   const router = useRouter();
   const { id } = router.query;
   const myBooks = useAppSelector((state) => state.account.info?.myBooks || []);
@@ -25,7 +24,7 @@ const MyBook = (props: Props) => {
   if (!curBook) {
     return <div>dd</div>;
   }
-  console.log(curBook);
+
   return (
     <div>
       <Box sx={{ display: 'flex' }}>
