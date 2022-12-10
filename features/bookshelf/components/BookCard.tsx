@@ -4,19 +4,32 @@ import NextLink from 'next/link';
 import { Button, Stack, Box, Link } from '@chakra-ui/react';
 import BookStatusDialog from '@/components/BookStatusDialog/index';
 import { bookshelfStatus } from '@/constants/constant';
-
+import { RatingDisplay } from '@/components/Ratings/Rating';
+import { useAppSelector } from '@/hooks/redux';
 import { MdModeEditOutline } from 'react-icons/md';
 import { TMyBook } from '@/types/book';
 
 type Props = {
-  info:TMyBook;
+  info: TMyBook;
 };
 
 const BookCard = ({ info }: Props) => {
   const { book, status } = info;
+  const reviews = useAppSelector((state) => state.reviews);
 
   return (
-    <Box>
+    <Box
+      sx={{
+        '&:hover': {
+          '& img': {
+            filter: 'brightness(0.8)',
+          },
+          '& a': {
+            textDecoration: 'underline',
+          },
+        },
+      }}
+    >
       <Stack
         align="center"
         sx={{
@@ -60,10 +73,11 @@ const BookCard = ({ info }: Props) => {
             },
           }}
           as={NextLink}
-          href="/home"
+          href={`/myBooks/${book.id}`}
         >
           {book.title}
         </Link>
+        <RatingDisplay rating={reviews[book.id]?.rating || 0} />
         <BookStatusDialog
           id={book.id}
           renderButton={(onClick) => (

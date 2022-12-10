@@ -16,6 +16,7 @@ const BookList = ({ books, page, changePage }: Props) => {
     <Stack spacing={5}>
       <Box
         sx={{
+          margin: '20px auto',
           maxWidth: '1200px',
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill,minmax(150px,1fr))',
