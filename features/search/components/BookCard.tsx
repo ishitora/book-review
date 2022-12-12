@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Box, Stack } from '@chakra-ui/react';
 import { RatingDisplay } from '@/components/Ratings/Rating';
 import { TSearchBook } from '@/types/book';
+
 const BookCard = ({ book }: { book: TSearchBook }) => {
   const router = useRouter();
   return (

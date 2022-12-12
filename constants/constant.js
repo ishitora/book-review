@@ -14,6 +14,8 @@ export const bookshelfStatus = {
 
 export const pathName = {
   '/search': '探索',
-  '/book': '閱讀中',
-  2: '已看過',
+  '/book/[id]': '書本詳細',
+  '/bookshelf': '我的書櫃',
+  '/myBooks/[id]': '我的書櫃',
+  '/search/[keyword]': '搜尋書本',
 };

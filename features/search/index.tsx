@@ -2,10 +2,11 @@ import React from 'react';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import Pagination from '@/components/Pagination/index';
-import { Box, SkeletonCircle, SkeletonText } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { fetcher } from '@/servers/API';
 import { TSearchBook } from '@/types/book';
 import BookCard from './components/BookCard';
+import SearchSkeleton from './components/SearchSkeleton';
 
 const Search = () => {
   const router = useRouter();
@@ -25,12 +26,7 @@ const Search = () => {
   };
 
   if (!data) {
-    return (
-      <Box padding="6" boxShadow="lg" bg="white">
-        <SkeletonCircle size="10" />
-        <SkeletonText mt="4" noOfLines={4} spacing="4" />
-      </Box>
-    );
+    return <SearchSkeleton />;
   }
 
   return (
