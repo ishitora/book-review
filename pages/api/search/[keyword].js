@@ -31,7 +31,7 @@ const handler = nc().get(async (req, res) => {
   }).populate({
     path: 'ratings',
     transform: (doc) => {
-      return { rating: doc?.rating };
+      return doc ? { rating: doc?.rating } : null;
     },
   });
 
@@ -78,7 +78,7 @@ const handler = nc().get(async (req, res) => {
         await saveBook.populate({
           path: 'ratings',
           transform: (doc) => {
-            return { rating: doc?.rating };
+            return doc ? { rating: doc?.rating } : null;
           },
         })
       );
