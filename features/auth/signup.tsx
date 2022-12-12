@@ -31,6 +31,9 @@ const Signup = () => {
           backgroundColor: 'white',
           borderRadius: '20px',
           padding: '30px 60px',
+          '&>* + *': {
+            marginTop: '12px',
+          },
         }}
         onSubmit={onSubmit}
       >
@@ -62,7 +65,6 @@ const Signup = () => {
               加入book review
             </Heading>
             <Box>
-              信箱
               <Controller
                 name="email"
                 control={control}
@@ -84,7 +86,6 @@ const Signup = () => {
               />
             </Box>
             <Box>
-              名字
               <Controller
                 name="name"
                 control={control}
@@ -105,7 +106,6 @@ const Signup = () => {
               />
             </Box>
             <Box>
-              密碼
               <Controller
                 name="password"
                 control={control}
@@ -129,7 +129,6 @@ const Signup = () => {
               />
             </Box>
             <Box>
-              確認密碼
               <Controller
                 name="confirmPassword"
                 control={control}

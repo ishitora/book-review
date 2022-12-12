@@ -2,14 +2,21 @@ import React from 'react';
 import Link from 'next/link';
 
 import { Controller } from 'react-hook-form';
-import { Box, Button, Heading } from '@chakra-ui/react';
+import { Box, Button, Heading, IconButton } from '@chakra-ui/react';
 import { MdVpnKey, MdMail } from 'react-icons/md';
-import Input from '@/components/common/Input';
 
+import Input from '@/components/common/Input';
+import { MdVisibilityOff, MdVisibility } from 'react-icons/md';
 import useLoginForm from './hooks/useLoginForm';
 
 const Login = () => {
-  const { onSubmit, control, errors } = useLoginForm();
+  const {
+    onSubmit,
+    control,
+    errors,
+    isDisplayPassword,
+    toggleIsDisplayPassword,
+  } = useLoginForm();
 
   return (
     <Box
@@ -31,6 +38,9 @@ const Login = () => {
           backgroundColor: 'white',
           borderRadius: '20px',
           padding: '30px 60px',
+          '&>* + *': {
+            marginTop: '12px',
+          },
         }}
         onSubmit={onSubmit}
       >
@@ -45,7 +55,6 @@ const Login = () => {
         </Heading>
 
         <Box>
-          信箱
           <Controller
             name="email"
             control={control}
@@ -65,7 +74,6 @@ const Login = () => {
           />
         </Box>
         <Box>
-          密碼
           <Controller
             name="password"
             control={control}
@@ -73,8 +81,24 @@ const Login = () => {
             render={({ field: { onChange, onBlur, value, name } }) => (
               <Input
                 leftElement={{ ele: <MdVpnKey style={{ fontSize: '24px' }} /> }}
+                rightElement={{
+                  ele: (
+                    <IconButton
+                      variant="unstyled"
+                      aria-label="displayPassword"
+                      onClick={toggleIsDisplayPassword}
+                      icon={
+                        isDisplayPassword ? (
+                          <MdVisibilityOff style={{ fontSize: '24px' }} />
+                        ) : (
+                          <MdVisibility style={{ fontSize: '24px' }} />
+                        )
+                      }
+                    ></IconButton>
+                  ),
+                }}
                 id="password"
-                type="password"
+                type={isDisplayPassword ? 'text' : 'password'}
                 placeholder="輸入密碼"
                 errorMessage={errors.password?.message}
                 value={value}
@@ -87,8 +111,8 @@ const Login = () => {
           />
         </Box>
         <Box>
-          <Link href="/forgotPassword">忘記密碼</Link>還沒有帳號?
-          <Link href="/signup">註冊</Link>
+          {/* <Link href="/forgotPassword">忘記密碼</Link> */}
+          還沒有帳號?<Link href="/signup">註冊</Link>
         </Box>
 
         <Button type="submit">登入</Button>

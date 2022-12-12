@@ -1,9 +1,11 @@
 import { useAppDispatch } from '@/hooks/redux';
 import { useForm } from 'react-hook-form';
+import { useBoolean } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { login } from '@/slices/accountSlice';
-import { useRouter } from 'next/router';
 
 type LoginData = {
   email: string;
@@ -18,6 +20,8 @@ const schema = yup.object({
 const useLoginForm = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const [isDisplayPassword, setIsDisplayPassword] = useBoolean();
+
   const {
     handleSubmit,
     control,
@@ -40,6 +44,8 @@ const useLoginForm = () => {
     onSubmit,
     control,
     errors,
+    isDisplayPassword,
+    toggleIsDisplayPassword: setIsDisplayPassword.toggle,
   };
 };
 

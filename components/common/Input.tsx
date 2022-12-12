@@ -63,7 +63,11 @@ const CustomInput = ({
           onBlur={onBlur}
           name={name}
           isInvalid={Boolean(errorMessage)}
-          sx={{ backgroundColor: '#fff' }}
+          sx={{
+            backgroundColor: '#fff',
+            border: '1px solid',
+            borderColor: '#ccc',
+          }}
           size={size || 'md'}
         />
         {rightElement?.ele && (
