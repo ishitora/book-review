@@ -25,6 +25,9 @@ export type TSearchBook = Pick<
 };
 
 export type TMyBook = {
-  book: Pick<TBookDetail, 'id' | 'image' | 'ratings' | 'title'>;
+  book: Pick<TBookDetail, 'id' | 'image' | 'ratings' | 'title' | 'authors'>;
   status: BookStatus;
+  create_date: string;
+  start_date: string;
+  finish_date: string;
 };
