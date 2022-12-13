@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`,
+  baseURL: process.env.BASE_URL,
   timeout: 10000,
 });
 

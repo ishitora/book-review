@@ -29,8 +29,16 @@ type Props = {
 };
 
 const BookStatusDialog = ({ id, status, renderButton }: Props) => {
-  const { isOpen, handleOpen, handleClose, handleClick, removeBook } =
-    useBookStatus(id, status);
+  const {
+    isOpen,
+    isDeleteOpen,
+    handleOpen,
+    handleClose,
+    handleDeleteOpen,
+    handleDeleteClose,
+    handleClick,
+    removeBook,
+  } = useBookStatus(id, status);
   const cancelRef = useRef<HTMLButtonElement>(null);
 
   return (
@@ -76,7 +84,11 @@ const BookStatusDialog = ({ id, status, renderButton }: Props) => {
                 已完成
               </Button>
               {typeof status === 'number' && (
-                <Button onClick={removeBook} colorScheme="red" variant="link">
+                <Button
+                  onClick={handleDeleteOpen}
+                  colorScheme="red"
+                  variant="link"
+                >
                   移出書櫃
                 </Button>
               )}
@@ -84,6 +96,38 @@ const BookStatusDialog = ({ id, status, renderButton }: Props) => {
           </AlertDialogBody>
           <AlertDialogFooter></AlertDialogFooter>
         </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog
+        leastDestructiveRef={cancelRef}
+        motionPreset="slideInBottom"
+        isOpen={isDeleteOpen}
+        onClose={handleDeleteClose}
+        isCentered
+      >
+        {' '}
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              從書櫃中移除
+            </AlertDialogHeader>
+            <AlertDialogBody>
+              將書本移出書櫃將會刪除全部閱讀紀錄，確定繼續?
+            </AlertDialogBody>
+            <AlertDialogFooter>
+              <Button
+                ref={cancelRef}
+                onClick={handleDeleteClose}
+                variant="outline"
+              >
+                取消
+              </Button>
+              <Button colorScheme="red" onClick={removeBook} ml={3}>
+                確認刪除
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
       </AlertDialog>
     </>
   );

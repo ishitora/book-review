@@ -21,8 +21,12 @@ const handler = nc().get(async (req, res) => {
   );
   await dbConnect();
 
-  console.log('google圖書結果', response.data);
+  //console.log('google圖書結果', response.data);
   const books = response?.data.items;
+
+  if (response.data.totalItems === 0) {
+    return res.json({ total: 0, books: [] });
+  }
 
   const bookIds = books.map((book) => book.id);
 

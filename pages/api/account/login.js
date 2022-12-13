@@ -7,43 +7,49 @@ import User from '@/models/User';
 import Book from '@/models/Book';
 import Review from '@/models/Review';
 const handler = nc().post(async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
+    if (!(password && email)) {
+      throw new Error('缺少登入資訊');
+    }
+    await dbConnect();
+    const user = await User.findOne({ email });
 
-  await dbConnect();
-  const user = await User.findOne({ email });
+    const passwordCorrect =
+      user === null ? false : await bcrypt.compare(password, user.passwordHash);
 
-  const passwordCorrect =
-    user === null ? false : await bcrypt.compare(password, user.passwordHash);
+    if (!(user && passwordCorrect)) {
+      return res.status(400).json({ success: false, message: '帳號密碼錯誤' });
+    }
 
-  if (!(user && passwordCorrect)) {
-    return res.status(401).json({
-      error: 'invalid username or password',
+    const userForToken = {
+      email: user.email,
+      id: user._id,
+    };
+
+    const token = jwt.sign(userForToken, process.env.JWT_SECRET, {
+      expiresIn: 60 * 60 * 24 * 2,
     });
-  }
 
-  const userForToken = {
-    email: user.email,
-    id: user._id,
-  };
-
-  const token = jwt.sign(userForToken, process.env.JWT_SECRET, {
-    expiresIn: 60 * 60 * 24 * 2,
-  });
-
-  const accountData = await user.populate({
-    path: 'myBooks',
-    populate: {
-      path: 'book',
-      model: 'Book',
-      select: ['title', 'authors', 'image'],
+    const accountData = await user.populate({
+      path: 'myBooks',
       populate: {
-        path: 'ratings',
-        select: 'rating -reference',
-        match: { user: user._id },
+        path: 'book',
+        model: 'Book',
+        select: ['title', 'authors', 'image'],
+        populate: {
+          path: 'ratings',
+          select: 'rating -reference',
+          match: { user: user._id },
+        },
       },
-    },
-  });
-  res.json({ token, accountData });
+    });
+    res.json({ token, accountData });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ success: false, message: error?.message || '發生錯誤' });
+  }
 });
 
 export default handler;

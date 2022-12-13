@@ -8,6 +8,7 @@ import { RatingDisplay } from '@/components/Ratings/Rating';
 import { useAppSelector } from '@/hooks/redux';
 import { MdModeEditOutline } from 'react-icons/md';
 import { TMyBook } from '@/types/book';
+import { useRouter } from 'next/router';
 
 type Props = {
   info: TMyBook;
@@ -16,6 +17,7 @@ type Props = {
 const BookCard = ({ info }: Props) => {
   const { book, status } = info;
   const reviews = useAppSelector((state) => state.reviews);
+  const router = useRouter();
 
   return (
     <Box
@@ -61,6 +63,9 @@ const BookCard = ({ info }: Props) => {
             style={{
               objectFit: 'contain',
               cursor: 'pointer',
+            }}
+            onClick={() => {
+              router.push(`/myBooks/${book.id}`);
             }}
           />
         </Box>

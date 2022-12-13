@@ -2,9 +2,10 @@ import React from 'react';
 import { Box, Skeleton, SkeletonText } from '@chakra-ui/react';
 
 const arr = new Array(10).fill(0);
+
 const SearchSkeleton = () => {
   return (
-    <Box>
+    <>
       {arr.map((_, index) => (
         <Box sx={{ display: 'flex', padding: '12px' }} key={index}>
           <Box sx={{ flex: '0 0 100px', marginRight: '12px' }}>
@@ -25,7 +26,7 @@ const SearchSkeleton = () => {
           </Box>
         </Box>
       ))}
-    </Box>
+    </>
   );
 };
 

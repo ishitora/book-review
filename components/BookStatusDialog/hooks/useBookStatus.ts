@@ -10,11 +10,18 @@ import { changeBookshelf, removeFromBookshelf } from '@/slices/accountSlice';
 const useBookStatus = (id: string, status: BookStatus | null) => {
   const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useBoolean();
+  const [isDeleteOpen, setIsDeleteOpen] = useBoolean();
   const checkLogin = useCheckLogin();
+
   const handleOpen = () => {
     if (checkLogin()) {
       setIsOpen.on();
     }
+  };
+
+  const handleDeleteOpen = () => {
+    setIsOpen.off();
+    setIsDeleteOpen.on();
   };
 
   const handleClick = (newStatus: BookStatus) => (): void => {
@@ -26,15 +33,21 @@ const useBookStatus = (id: string, status: BookStatus | null) => {
 
   const removeBook = (): void => {
     dispatch(removeFromBookshelf({ id })).then(() => {
-      setIsOpen.off();
+      setIsDeleteOpen.off();
     });
   };
 
   const handleClose = setIsOpen.off;
+  const handleDeleteClose = setIsDeleteOpen.off;
+
   return {
     isOpen,
+    isDeleteOpen,
+
     handleOpen,
+    handleDeleteOpen,
     handleClose,
+    handleDeleteClose,
     handleClick,
     removeBook,
   };

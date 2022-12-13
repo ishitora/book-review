@@ -2,7 +2,12 @@ import React from 'react';
 import { Button, Stack, Box, Heading, Divider, Center } from '@chakra-ui/react';
 import { MdOutlineModeStandby } from 'react-icons/md';
 import { bookshelfStatus } from '@/constants/constant';
-type Props = {};
+type Props = {
+  status: 0 | 1 | 2;
+  create_date: string;
+  start_date?: string;
+  finish_date?: string;
+};
 
 const History = ({ status, create_date, start_date, finish_date }: Props) => {
   return (
@@ -66,8 +71,8 @@ const History = ({ status, create_date, start_date, finish_date }: Props) => {
           }}
         >
           <p>加入日期:{create_date}</p>
-          <p>開始日期:{start_date}</p>
-          <p>結束日期:{finish_date}</p>
+          {start_date && <p>開始日期:{start_date}</p>}
+          {finish_date && <p>結束日期:{finish_date}</p>}
         </Box>
       </Box>
     </Box>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import useSWR from 'swr';
-import { Box, Text, Stack, Button, Heading } from '@chakra-ui/react';
+import { Box, Text, Stack, Button, Heading, Divider } from '@chakra-ui/react';
 import { useAppSelector } from '@/hooks/redux';
 
 import AddReviewModal from '@/components/AddReviewModal';
@@ -23,7 +23,7 @@ const BookDetail = ({ book }: { book: TBookDetail }) => {
   )?.status;
   const status = typeof findStatus === 'number' ? findStatus : null;
 
-  const { data: reviews } = useSWR<TReview[], Error>(
+  const { data: reviews, mutate } = useSWR<TReview[], Error>(
     book.id,
     reviewServers.getReviewsById
   );
@@ -72,13 +72,23 @@ const BookDetail = ({ book }: { book: TBookDetail }) => {
               renderButton={(onClick) => (
                 <Button onClick={onClick}>新增評論</Button>
               )}
+              afterSubmit={() => {
+                mutate();
+              }}
               id={book.id}
             />
           </Stack>
         </Box>
       </Box>
 
-      <Box sx={{ flex: '0 0 1' }}>
+      <Box
+        sx={{
+          flex: '0 0 1',
+          '&> * + *': {
+            marginTop: '20px',
+          },
+        }}
+      >
         <Heading as="h2" size="2xl">
           {book.title}
         </Heading>
@@ -113,14 +123,28 @@ const BookDetail = ({ book }: { book: TBookDetail }) => {
         </Box>
 
         <Box sx={{ gridArea: 'rating' }}>
+          <Heading as="h4" size="md">
+            評分
+          </Heading>
           <Ratings ratings={book.ratings} />
         </Box>
         <Box sx={{ gridArea: 'reviews' }}>
-          <Heading as="h4" size="md">
+          <Heading
+            as="h4"
+            size="md"
+            sx={{
+              margin: '12px 0',
+            }}
+          >
             評論
           </Heading>
-          {reviews &&
-            reviews.map((review) => <Review key={review.id} review={review} />)}
+          <Divider />
+          <Box sx={{ '&>* + *': { marginTop: '12px' }, padding: '12px' }}>
+            {reviews &&
+              reviews.map((review) => (
+                <Review key={review.id} review={review} />
+              ))}
+          </Box>
         </Box>
       </Box>
     </Box>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconButton, Box, Button } from '@chakra-ui/react';
+import { IconButton, Box, Button, useMediaQuery } from '@chakra-ui/react';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -9,20 +9,28 @@ import {
 
 import getPaginationConfig from './utils/getPaginationConfig';
 
-export interface PaginationConfig {
+export interface Pagination {
   p: number;
   count: number;
   total: number;
 }
-export interface PaginationProps extends PaginationConfig {
+export interface PaginationConfig extends Pagination {
+  isMobile: boolean;
+}
+export interface PaginationProps extends Pagination {
   changePage: (p: number) => void;
 }
 
 const Pagination = ({ p, count, total, changePage }: PaginationProps) => {
+  const [isMobile] = useMediaQuery('(max-width: 768px)', {
+    ssr: true,
+    fallback: true,
+  });
   const { pages, disablePre, disableNext } = getPaginationConfig({
     p,
     count,
     total,
+    isMobile,
   });
 
   return (
@@ -36,14 +44,17 @@ const Pagination = ({ p, count, total, changePage }: PaginationProps) => {
             changePage(1);
           }}
         />
-        <IconButton
-          aria-label="previous page"
-          icon={<ChevronLeftIcon h={7} w={7} />}
-          disabled={disablePre}
-          onClick={() => {
-            changePage(p - 1);
-          }}
-        />
+
+        {!isMobile && (
+          <IconButton
+            aria-label="previous page"
+            icon={<ChevronLeftIcon h={7} w={7} />}
+            disabled={disablePre}
+            onClick={() => {
+              changePage(p - 1);
+            }}
+          />
+        )}
 
         {pages.map((page) => (
           <Button
@@ -57,14 +68,16 @@ const Pagination = ({ p, count, total, changePage }: PaginationProps) => {
           </Button>
         ))}
 
-        <IconButton
-          aria-label="next page"
-          icon={<ChevronRightIcon h={7} w={7} />}
-          disabled={disableNext}
-          onClick={() => {
-            changePage(p + 1);
-          }}
-        />
+        {!isMobile && (
+          <IconButton
+            aria-label="next page"
+            icon={<ChevronRightIcon h={7} w={7} />}
+            disabled={disableNext}
+            onClick={() => {
+              changePage(p + 1);
+            }}
+          />
+        )}
         <IconButton
           aria-label="last page"
           icon={<ArrowRightIcon />}

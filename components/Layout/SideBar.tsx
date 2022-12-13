@@ -26,6 +26,7 @@ const Header = () => {
     <Box
       sx={{
         padding: '16px',
+        paddingTop: 0,
         width: '240px',
         position: 'fixed',
         top: 0,
@@ -35,10 +36,8 @@ const Header = () => {
         flexDirection: 'column',
         alignItems: 'flex-start',
         borderRight: '1px solid #eee',
-        '@media screen and (max-width: 600px)': {
-          //   flexWrap: 'wrap',
-          //   height: '120px',
-        },
+        minHeight: '550px',
+        '@media screen and (max-width: 600px)': {},
         borderColor(theme) {
           return theme.colors.primary.dark;
         },

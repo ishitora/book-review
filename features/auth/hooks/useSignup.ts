@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import accountServers from '@/servers/accountServers';
+import useOpenToast from '@/hooks/useOpenToast';
 
 type SigninData = {
   email: string;
@@ -16,6 +17,15 @@ type SigninData = {
 
 const schema = yup
   .object({
+    name: yup
+      .string()
+      .test('length', '暱稱最多10字', (value) => {
+        if (!value) {
+          return true;
+        }
+        return value.length <= 10;
+      })
+      .required('必填'),
     email: yup.string().email('必須為合法信箱').required('必填'),
     password: yup.string().required('必填'),
     confirmPassword: yup
@@ -27,6 +37,7 @@ const schema = yup
 
 const useSignup = () => {
   const [isSignup, setIsSignup] = useState(false);
+  const openToast = useOpenToast();
   const router = useRouter();
   const {
     handleSubmit,
@@ -44,9 +55,18 @@ const useSignup = () => {
   });
   const onSubmit = handleSubmit((data) => {
     const { email, name, password } = data;
-    accountServers.signup({ email, name, password }).then(() => {
-      setIsSignup(true);
-    });
+    accountServers
+      .signup({ email, name, password })
+      .then(() => {
+        setIsSignup(true);
+      })
+      .catch((error) => {
+        if (error.response) {
+          openToast('error', error.response.data?.message || '發生錯誤');
+        } else {
+          console.error(error);
+        }
+      });
   });
 
   const goToLogin = () => {

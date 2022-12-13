@@ -10,12 +10,23 @@ import type { TMyBook } from '@/types/book';
 
 export const login = createAsyncThunk(
   'account/login',
-  async (payload: { email: string; password: string }, { dispatch }) => {
-    return accountServers.login(payload).then((res) => {
-      setCookie('token', 'Bearer ' + res?.token);
-      dispatch(getReviews());
-      return res?.accountData;
-    });
+  async (
+    payload: { email: string; password: string },
+    { dispatch, rejectWithValue }
+  ) => {
+    return accountServers
+      .login(payload)
+      .then((res) => {
+        setCookie('token', 'Bearer ' + res?.token);
+        dispatch(getReviews());
+        return res?.accountData;
+      })
+      .catch((error) => {
+        if (!error.response) {
+          throw new Error('發生錯誤');
+        }
+        return rejectWithValue(error.response.data);
+      });
   }
 );
 
@@ -55,6 +66,7 @@ export const removeFromBookshelf = createAsyncThunk(
 );
 
 interface Account {
+  isLoading: boolean;
   isLogin: boolean;
   info: {
     name: string;
@@ -63,6 +75,7 @@ interface Account {
 }
 
 const initialState: Account = {
+  isLoading: true,
   isLogin: false,
   info: null,
 };
@@ -88,8 +101,14 @@ export const accountSlice = createSlice({
     });
 
     builder.addCase(getAccount.fulfilled, (state, action) => {
+      state.isLoading = false;
       state.isLogin = true;
       state.info = action.payload;
+      return state;
+    });
+    builder.addCase(getAccount.rejected, (state) => {
+      state.isLoading = false;
+      return state;
     });
 
     builder.addCase(changeBookshelf.fulfilled, (state, action) => {

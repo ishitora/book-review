@@ -1,14 +1,17 @@
 import React from 'react';
-import { Box, IconButton, Heading } from '@chakra-ui/react';
+import { Box, IconButton, Heading, useMediaQuery } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 import { pathName } from '@/constants/constant';
 import SearchBar from '@/components/common/SearchBar';
-import { MdNavigateBefore } from 'react-icons/md';
+import { MdNavigateBefore, MdMenu } from 'react-icons/md';
 
-const Header = () => {
+const Header = ({ toggle }: { toggle: () => void }) => {
   const router = useRouter();
-  console.log(router);
+  const [isMobile] = useMediaQuery('(max-width: 768px)', {
+    ssr: true,
+    fallback: true,
+  });
   return (
     <Box
       as="header"
@@ -21,8 +24,19 @@ const Header = () => {
         '&>* + *': {
           marginLeft: '12px',
         },
+        '@media (max-width: 600px)': {
+          padding: '12px',
+        },
       }}
     >
+      {isMobile && (
+        <IconButton
+          variant="ghost"
+          aria-label="toggle sidebar"
+          onClick={toggle}
+          icon={<MdMenu style={{ fontSize: '24px' }} />}
+        />
+      )}
       {(router.asPath.startsWith('/book/') ||
         router.asPath.startsWith('/myBooks/')) && (
         <IconButton

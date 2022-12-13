@@ -1,6 +1,11 @@
 import type { PaginationConfig } from '../index';
 
-const getPaginationConfig = ({ p, count, total }: PaginationConfig) => {
+const getPaginationConfig = ({
+  p,
+  count,
+  total,
+  isMobile,
+}: PaginationConfig) => {
   if (p === 0 || total === 0) {
     return {
       pages: [1],
@@ -9,10 +14,12 @@ const getPaginationConfig = ({ p, count, total }: PaginationConfig) => {
     };
   }
 
+  const displayCount = isMobile ? 3 : 7;
+
   const lastPage = Math.ceil(total / count);
   const pages = [p];
-  for (let i = 1; i < 7; i++) {
-    if (pages.length === 7) {
+  for (let i = 1; i < displayCount; i++) {
+    if (pages.length === displayCount) {
       break;
     }
     if (p - i > 0) {

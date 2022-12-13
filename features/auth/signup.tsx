@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Box, Button, Heading, Text } from '@chakra-ui/react';
 import { MdVpnKey, MdMail, MdAccountCircle } from 'react-icons/md';
@@ -10,7 +11,6 @@ import useSignup from './hooks/useSignup';
 
 const Signup = () => {
   const { control, errors, onSubmit, isSignup, goToLogin } = useSignup();
-
   return (
     <Box
       bgColor="gray.100"
@@ -39,18 +39,39 @@ const Signup = () => {
       >
         {isSignup ? (
           <>
+            <Image
+              src="/image/success.gif"
+              width={300}
+              height={200}
+              alt="signup success"
+            />
             <Heading
               as="h3"
-              size="lg"
+              size="md"
               colorScheme="primary"
               sx={{
                 marginBottom: '20px',
+                textAlign: 'center',
               }}
             >
               註冊成功
             </Heading>
-            <Text>請到登入頁面登入</Text>
-            <Button onClick={goToLogin}>前往登入頁</Button>
+            <Text
+              sx={{
+                textAlign: 'center',
+              }}
+            >
+              感謝您的註冊，請至登入頁面登入
+            </Text>
+            <Button
+              sx={{
+                marginTop: 'auto',
+                padding: '12px',
+              }}
+              onClick={goToLogin}
+            >
+              前往登入頁
+            </Button>
           </>
         ) : (
           <>
@@ -97,6 +118,7 @@ const Signup = () => {
                     }}
                     id="name"
                     placeholder="輸入您的暱稱"
+                    errorMessage={errors.name?.message}
                     value={value}
                     onBlur={onBlur}
                     onChange={onChange}

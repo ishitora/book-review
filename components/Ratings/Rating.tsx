@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { Box, Text } from '@chakra-ui/react';
+import React from 'react';
+import { Box } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
 import { MdStarOutline, MdOutlineStar, MdStarHalf } from 'react-icons/md';
 import ErrorMessage from '@/components/common/ErrorMessage';
@@ -17,11 +17,8 @@ const scoreArr = [
 ];
 
 const Rating = ({ name, errorMessage = '' }: Props) => {
-  const [hoverStar, setHoverStar] = useState<number | null>(null);
-  const clearWhenLeave = useRef(true);
-
-  const { setValue, getValues } = useFormContext();
-
+  const { setValue, watch } = useFormContext();
+  const rating = watch('rating');
   return (
     <Box>
       <Box
@@ -37,42 +34,28 @@ const Rating = ({ name, errorMessage = '' }: Props) => {
               fontSize: '24px',
             },
           }}
-          onMouseLeave={() => {
-            setHoverStar(null);
-            if (clearWhenLeave.current === false) {
-              clearWhenLeave.current = true;
-            } else {
-              setValue(name, null);
-            }
-          }}
         >
-          {scoreArr.map((starIndex) => {
-            return (getValues(name) >= starIndex.score && !hoverStar) ||
-              (typeof hoverStar === 'number' &&
-                hoverStar >= starIndex.score) ? (
+          {scoreArr.map((starIndex, index) => {
+            return rating >= starIndex.score ? (
               <MdOutlineStar
+                key={index}
                 color="#FFA41C"
-                onMouseEnter={() => {
-                  setHoverStar(starIndex.score);
-                }}
                 onClick={() => {
-                  clearWhenLeave.current = false;
                   setValue(name, starIndex.score);
                 }}
               />
             ) : (
               <MdStarOutline
+                key={index}
                 color="#aaa"
-                onMouseEnter={() => {
-                  setHoverStar(starIndex.score);
+                onClick={() => {
+                  setValue(name, starIndex.score);
                 }}
               />
             );
           })}
         </Box>
-        {(getValues(name) || hoverStar) && (
-          <span>{scoreArr[(hoverStar || getValues(name)) - 1]?.text}</span>
-        )}
+        {rating && <span>{scoreArr[rating - 1]?.text}</span>}
       </Box>
       <ErrorMessage>{errorMessage}</ErrorMessage>
     </Box>

@@ -51,7 +51,11 @@ const AddReviewModal = ({
 
       <Modal isOpen={isOpen} onClose={handleClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent
+          sx={{
+            maxWidth: 'calc(100vw - 32px)',
+          }}
+        >
           <FormProvider {...methods}>
             <ModalHeader>分享您的看法</ModalHeader>
             <ModalCloseButton />

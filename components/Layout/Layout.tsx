@@ -1,4 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import {
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  useMediaQuery,
+  useBoolean,
+} from '@chakra-ui/react';
+
 import Header from '@/components/Layout/Header';
 import Footer from '@/components/Layout/Footer';
 import SideBar from '@/components/Layout/SideBar';
@@ -11,6 +23,14 @@ type Props = {
 
 const Layout = (props: Props) => {
   const router = useRouter();
+  const [isMobile] = useMediaQuery('(max-width: 768px)', {
+    ssr: true,
+    fallback: true,
+  });
+  const [isOpen, setIsOpen] = useBoolean();
+  useEffect(() => {
+    setIsOpen.off();
+  }, [router.asPath, setIsOpen]);
 
   if (router.asPath === '/login' || router.asPath === '/signup') {
     return (
@@ -34,13 +54,31 @@ const Layout = (props: Props) => {
 
   return (
     <>
-      <SideBar />
+      {isMobile ? (
+        <Drawer isOpen={isOpen} placement="left" onClose={setIsOpen.off}>
+          <DrawerOverlay>
+            <DrawerContent
+              sx={{
+                maxWidth: '240px',
+              }}
+            >
+              <SideBar />
+            </DrawerContent>
+          </DrawerOverlay>
+        </Drawer>
+      ) : (
+        <SideBar />
+      )}
       <Box
         as="main"
         sx={{
           marginLeft: '240px',
           maxWidth: 'calc(100vw - 240px)',
           flex: 1,
+          '@media (max-width: 768px)': {
+            margin: 0,
+            maxWidth: '100vw',
+          },
           '&>div': {
             padding: '20px 40px',
             '@media (max-width: 600px)': {
@@ -49,7 +87,7 @@ const Layout = (props: Props) => {
           },
         }}
       >
-        <Header />
+        <Header toggle={setIsOpen.toggle} />
         {props.children}
       </Box>
       {/* <Footer /> */}
