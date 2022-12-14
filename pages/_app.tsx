@@ -25,7 +25,15 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router]);
 
   useEffect(() => {
-    store.dispatch(getAccount());
+    store.dispatch(getAccount()).then(() => {
+      if (
+        !store.getState().account?.isLogin &&
+        !store.getState().account?.isLoading &&
+        !(router.asPath === '/login' || router.asPath === '/signup')
+      ) {
+        router.push('/login');
+      }
+    });
   }, []);
 
   return (

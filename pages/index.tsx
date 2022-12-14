@@ -1,5 +1,14 @@
 import Head from 'next/head';
 
+export async function getServerSideProps() {
+  return {
+    redirect: {
+      destination: '/bookshelf',
+      permanent: false,
+    },
+  };
+}
+
 export default function Home() {
   return (
     <>

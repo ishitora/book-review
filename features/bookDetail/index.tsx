@@ -126,7 +126,13 @@ const BookDetail = ({ book }: { book: TBookDetail }) => {
           <Heading as="h4" size="md">
             評分
           </Heading>
-          <Ratings ratings={book.ratings} />
+          <Ratings
+            ratings={
+              reviews
+                ? reviews.map((review) => ({ rating: review.rating }))
+                : []
+            }
+          />
         </Box>
         <Box sx={{ gridArea: 'reviews' }}>
           <Heading

@@ -8,7 +8,7 @@ export type TReview = {
 };
 
 export type MyReview = {
-  create_time: string;
+  create_date: string;
   title: string;
   rating: number;
   content: string;

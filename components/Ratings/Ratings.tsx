@@ -53,7 +53,9 @@ const RatingHistogram = ({
         ></Box>
       </Box>
       {total > 0 && (
-        <Text>{`${Math.round((ratingCount / total) * 100)}%`}</Text>
+        <Box sx={{ width: '50px' }}>
+          <Text>{`${Math.round((ratingCount / total) * 100)}%`}</Text>
+        </Box>
       )}
     </Box>
   );

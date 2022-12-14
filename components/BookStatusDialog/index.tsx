@@ -46,7 +46,7 @@ const BookStatusDialog = ({ id, status, renderButton }: Props) => {
       {renderButton ? (
         renderButton(handleOpen)
       ) : (
-        <Button onClick={handleOpen}>
+        <Button onClick={handleOpen} variant="outline">
           {typeof status === 'number' ? buttonText[status] : '加入書櫃'}
         </Button>
       )}

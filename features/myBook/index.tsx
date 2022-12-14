@@ -3,15 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useAppSelector } from '@/hooks/redux';
 
-import {
-  Button,
-  Stack,
-  Box,
-  Link,
-  Divider,
-  Center,
-  Heading,
-} from '@chakra-ui/react';
+import { Stack, Box, Heading, Spinner } from '@chakra-ui/react';
 
 import History from './components/History';
 
@@ -22,13 +14,40 @@ const MyBook = () => {
 
   const curBook = myBooks.find((myBook) => myBook.book.id === id);
   if (!curBook) {
-    return <div>dd</div>;
+    return (
+      <Box>
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="primary.500"
+          size="xl"
+        />
+      </Box>
+    );
   }
 
   return (
-    <div>
-      <Box sx={{ display: 'flex' }}>
-        <Stack>
+    <Box>
+      <Box
+        sx={{
+          display: 'flex',
+
+          '@media (max-width:600px)': {
+            flexDirection: 'column',
+            alignItems: 'center',
+          },
+        }}
+      >
+        <Stack
+          sx={{
+            marginRight: '40px',
+
+            '@media (max-width:600px)': {
+              marginRight: 0,
+            },
+          }}
+        >
           <Box
             sx={{
               position: 'relative',
@@ -56,7 +75,7 @@ const MyBook = () => {
           finish_date={curBook.finish_date}
         />
       </Box>
-    </div>
+    </Box>
   );
 };
 

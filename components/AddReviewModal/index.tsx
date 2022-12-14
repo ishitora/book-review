@@ -53,7 +53,7 @@ const AddReviewModal = ({
         <ModalOverlay />
         <ModalContent
           sx={{
-            maxWidth: 'calc(100vw - 32px)',
+            maxWidth: 'min(calc(100vw - 32px),600px)',
           }}
         >
           <FormProvider {...methods}>
@@ -111,7 +111,7 @@ const AddReviewModal = ({
               <Button variant="ghost" mr={3} onClick={handleClose}>
                 取消
               </Button>
-              <Button colorScheme="blue" onClick={onSubmit}>
+              <Button colorScheme="primary" onClick={onSubmit}>
                 提交
               </Button>
             </ModalFooter>

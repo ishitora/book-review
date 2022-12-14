@@ -1,12 +1,9 @@
-import React, { useState, KeyboardEvent } from 'react';
+import React, from 'react';
 import Image from 'next/image';
 import {
   Box,
   Button,
-  Menu,
-  MenuItem,
-  MenuList,
-  MenuButton,
+  Center,
   Avatar,
   Text,
 } from '@chakra-ui/react';
@@ -60,14 +57,22 @@ const Header = () => {
           alt="logo"
           style={{ objectFit: 'contain' }}
           onClick={() => {
-            router.push('/');
+            router.push('/bookshelf');
           }}
         />
       </Box>
-      <Box sx={{ alignSelf: 'center', marginBottom: '40px' }}>
-        <Avatar size="lg" />
+      <Center
+        sx={{
+          alignSelf: 'center',
+          marginBottom: '40px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar size="lg" name={account.info ? account.info.name : ''} />
         {account.info && <Text textAlign="center">{account.info.name}</Text>}
-      </Box>
+      </Center>
       <Button
         size="lg"
         variant="ghost"
@@ -95,7 +100,7 @@ const Header = () => {
         leftIcon={<MdLogout />}
         onClick={() => {
           dispatch(logout());
-          router.push(`/`);
+          router.push('/login');
         }}
       >
         登出

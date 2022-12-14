@@ -9,14 +9,14 @@ import Review from '@/models/Review';
 const handler = nc()
   .get(async (req, res) => {
     await dbConnect();
-    const reviews = await Review.find({ reference: req.query.id }).populate(
-      'user',
-      {
+    const reviews = await Review.find({ reference: req.query.id })
+      .sort({ create_date: -1 })
+      .limit(10)
+      .populate('user', {
         id: 1,
         name: 1,
         avatar: 1,
-      }
-    );
+      });
     res.json(reviews);
   })
   .use(userExtractor)

@@ -5,9 +5,9 @@ export const getReviews = createAsyncThunk('review/getReviews', async () => {
   return reviewServers.getMyReviews().then((res) => {
     const reviewsMap = {};
     res.forEach(
-      ({ title, reference, rating, content, likes, create_time, id }) => {
+      ({ title, reference, rating, content, likes, create_date, id }) => {
         reviewsMap[reference] = {
-          create_time,
+          create_date,
           title,
           rating,
           content,

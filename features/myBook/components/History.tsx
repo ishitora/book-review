@@ -71,8 +71,8 @@ const History = ({ status, create_date, start_date, finish_date }: Props) => {
           }}
         >
           <p>加入日期:{create_date}</p>
-          {start_date && <p>開始日期:{start_date}</p>}
-          {finish_date && <p>結束日期:{finish_date}</p>}
+          <p>開始日期:{start_date}</p>
+          <p>結束日期:{finish_date}</p>
         </Box>
       </Box>
     </Box>
