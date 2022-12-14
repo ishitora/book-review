@@ -1,12 +1,6 @@
-import React, from 'react';
+import React from 'react';
 import Image from 'next/image';
-import {
-  Box,
-  Button,
-  Center,
-  Avatar,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Button, Center, Avatar, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useAppSelector, useAppDispatch } from '@/hooks/redux';
 import { logout } from '@/slices/accountSlice';
