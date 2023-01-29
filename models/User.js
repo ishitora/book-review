@@ -11,6 +11,7 @@ const userSchema = new Schema({
     ref: 'Review',
     default: [],
   },
+  isOAuth: { type: Boolean, default: false },
   myBooks: [
     {
       book: {

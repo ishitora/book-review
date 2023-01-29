@@ -14,7 +14,10 @@ const handler = nc().post(async (req, res) => {
     }
     await dbConnect();
     const user = await User.findOne({ email });
-
+    console.log(user);
+    if (user.isOAuth) {
+      throw new Error('請使用第三方登入');
+    }
     const passwordCorrect =
       user === null ? false : await bcrypt.compare(password, user.passwordHash);
 

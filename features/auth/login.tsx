@@ -8,7 +8,7 @@ import { MdVpnKey, MdMail } from 'react-icons/md';
 import Input from '@/components/common/Input';
 import { MdVisibilityOff, MdVisibility } from 'react-icons/md';
 import useLoginForm from './hooks/useLoginForm';
-
+import { useSession, signIn, signOut } from 'next-auth/react';
 const Login = () => {
   const {
     onSubmit,
@@ -114,7 +114,8 @@ const Login = () => {
           {/* <Link href="/forgotPassword">忘記密碼</Link> */}
           還沒有帳號?<Link href="/signup">註冊</Link>
         </Box>
-
+        <button onClick={() => signIn('google')}>使用google登入</button>
+        <button onClick={() => signIn('facebook')}>使用facebook登入</button>
         <Button type="submit">登入</Button>
       </Box>
     </Box>

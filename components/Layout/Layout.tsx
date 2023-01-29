@@ -54,7 +54,7 @@ const Layout = (props: Props) => {
 
   return (
     <>
-      {isMobile ? (
+      {/* {isMobile ? (
         <Drawer isOpen={isOpen} placement="left" onClose={setIsOpen.off}>
           <DrawerOverlay>
             <DrawerContent
@@ -68,12 +68,11 @@ const Layout = (props: Props) => {
         </Drawer>
       ) : (
         <SideBar />
-      )}
+      )} */}
       <Box
         as="main"
         sx={{
-          marginLeft: '240px',
-          maxWidth: 'calc(100vw - 240px)',
+          maxWidth: '100vw',
           flex: 1,
           '@media (max-width: 768px)': {
             margin: 0,

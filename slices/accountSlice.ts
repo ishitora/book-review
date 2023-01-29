@@ -37,7 +37,7 @@ export const logout = createAsyncThunk('account/logout', () => {
 
 export const getAccount = createAsyncThunk(
   'account/getAccount',
-  async (_, { dispatch }) => {
+  async (payload: { email: string | null }, { dispatch }) => {
     return accountServers.getAccount().then((res) => {
       dispatch(getReviews());
       return res;

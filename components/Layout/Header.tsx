@@ -1,17 +1,44 @@
-import React from 'react';
-import { Box, IconButton, Heading, useMediaQuery } from '@chakra-ui/react';
+import React, { useEffect, useRef } from 'react';
+import {
+  Box,
+  Button,
+  IconButton,
+  Heading,
+  useMediaQuery,
+} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 import { pathName } from '@/constants/constant';
 import SearchBar from '@/components/common/SearchBar';
+import { getAccount } from '@/slices/accountSlice';
 import { MdNavigateBefore, MdMenu } from 'react-icons/md';
-
+import { useSession, signOut } from 'next-auth/react';
+import { useAppDispatch } from '@/hooks/redux';
+import { logout } from '@/slices/accountSlice';
 const Header = ({ toggle }: { toggle: () => void }) => {
+  const dispatch = useAppDispatch();
+
   const router = useRouter();
   const [isMobile] = useMediaQuery('(max-width: 768px)', {
     ssr: true,
     fallback: true,
   });
+
+  const { data: session, status } = useSession();
+  const isLogining = useRef(true);
+
+  useEffect(() => {
+    if (isLogining.current) {
+      if (status === 'authenticated') {
+        dispatch(getAccount({ email: session?.user?.email || null }));
+        isLogining.current = false;
+      } else if (status === 'unauthenticated') {
+        dispatch(getAccount({ email: null }));
+        isLogining.current = false;
+      }
+    }
+  }, [status]);
+
   return (
     <Box
       as="header"
@@ -53,7 +80,19 @@ const Header = ({ toggle }: { toggle: () => void }) => {
           {pathName[router.pathname]}
         </Heading>
       )}
-      {router.asPath.startsWith('/search') && <SearchBar />}
+      <SearchBar />
+
+      <Button
+        size="lg"
+        variant="ghost"
+        onClick={() => {
+          dispatch(logout());
+          signOut();
+          router.push('/');
+        }}
+      >
+        登出
+      </Button>
     </Box>
   );
 };
