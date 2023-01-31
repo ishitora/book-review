@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import NextLink from 'next/link';
-import { Button, Stack, Box, Link } from '@chakra-ui/react';
+import { Stack, Box, Link } from '@chakra-ui/react';
 import BookStatusDialog from '@/components/BookStatusDialog/index';
 import { bookshelfStatus } from '@/constants/constant';
 import { RatingDisplay } from '@/components/Ratings/Rating';
@@ -9,6 +9,7 @@ import { useAppSelector } from '@/hooks/redux';
 import { MdModeEditOutline } from 'react-icons/md';
 import { TMyBook } from '@/types/book';
 import { useRouter } from 'next/router';
+import CustomButton from '@/components/common/CustomButton';
 
 type Props = {
   info: TMyBook;
@@ -73,9 +74,6 @@ const BookCard = ({ info }: Props) => {
           sx={{
             fontSize: '16px',
             fontWeight: 600,
-            color(theme) {
-              return theme.colors.primary.dark;
-            },
           }}
           as={NextLink}
           href={`/myBooks/${book.id}`}
@@ -86,13 +84,13 @@ const BookCard = ({ info }: Props) => {
         <BookStatusDialog
           id={book.id}
           renderButton={(onClick) => (
-            <Button
-              rightIcon={<MdModeEditOutline />}
-              variant="outline"
+            <CustomButton
+              //  rightIcon={<MdModeEditOutline />}
+              // variant="outline"
               onClick={onClick}
             >
               {bookshelfStatus[status]}
-            </Button>
+            </CustomButton>
           )}
           status={status}
         />

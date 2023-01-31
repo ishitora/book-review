@@ -2,13 +2,14 @@ import React from 'react';
 import Link from 'next/link';
 
 import { Controller } from 'react-hook-form';
-import { Box, Button, Heading, IconButton } from '@chakra-ui/react';
+import { Box, Heading, IconButton } from '@chakra-ui/react';
 import { MdVpnKey, MdMail } from 'react-icons/md';
 
 import Input from '@/components/common/Input';
 import { MdVisibilityOff, MdVisibility } from 'react-icons/md';
 import useLoginForm from './hooks/useLoginForm';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
+import CustomButton from '@/components/common/CustomButton';
 const Login = () => {
   const {
     onSubmit,
@@ -114,9 +115,13 @@ const Login = () => {
           {/* <Link href="/forgotPassword">忘記密碼</Link> */}
           還沒有帳號?<Link href="/signup">註冊</Link>
         </Box>
-        <button onClick={() => signIn('google')}>使用google登入</button>
-        <button onClick={() => signIn('facebook')}>使用facebook登入</button>
-        <Button type="submit">登入</Button>
+        <CustomButton onClick={() => signIn('google')}>
+          使用google登入
+        </CustomButton>
+        <CustomButton onClick={() => signIn('facebook')}>
+          使用facebook登入
+        </CustomButton>
+        <CustomButton type="submit">登入</CustomButton>
       </Box>
     </Box>
   );

@@ -37,7 +37,7 @@ export const logout = createAsyncThunk('account/logout', () => {
 
 export const getAccount = createAsyncThunk(
   'account/getAccount',
-  async (payload: { email: string | null }, { dispatch }) => {
+  async (_, { dispatch }) => {
     return accountServers.getAccount().then((res) => {
       dispatch(getReviews());
       return res;
@@ -70,6 +70,7 @@ interface Account {
   isLogin: boolean;
   info: {
     name: string;
+    avatar: string;
     myBooks: TMyBook[];
   } | null;
 }
@@ -93,6 +94,7 @@ export const accountSlice = createSlice({
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLogin = true;
       state.info = action.payload;
+      return state;
     });
 
     builder.addCase(logout.fulfilled, (state) => {

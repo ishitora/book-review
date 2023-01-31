@@ -1,13 +1,11 @@
 import React, { KeyboardEvent } from 'react';
 import type { Noop } from 'react-hook-form';
-import {
-  Box,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
-} from '@chakra-ui/react';
+import Box from '@mui/material/Box';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+
 import ErrorMessage from './ErrorMessage';
+
 type Props = {
   id?: string;
   type?: string;
@@ -27,7 +25,7 @@ type Props = {
   name?: string;
   errorMessage?: string;
   noHelpText?: boolean;
-  size?: 'lg' | 'md' | 'sm' | 'xs';
+  size?: 'medium' | 'small';
 };
 
 const CustomInput = ({
@@ -48,34 +46,39 @@ const CustomInput = ({
 }: Props) => {
   return (
     <Box>
-      <InputGroup size={size || 'md'}>
-        {leftElement?.ele && (
-          <InputLeftElement width={leftElement?.width}>
-            {leftElement.ele}
-          </InputLeftElement>
-        )}
-        <Input
-          id={id}
-          type={type}
-          placeholder={placeholder}
-          onChange={onChange}
-          onKeyPress={onKeyPress}
-          onBlur={onBlur}
-          name={name}
-          isInvalid={Boolean(errorMessage)}
-          sx={{
-            backgroundColor: '#fff',
-            border: '1px solid',
-            borderColor: '#ccc',
-          }}
-          size={size || 'md'}
-        />
-        {rightElement?.ele && (
-          <InputRightElement width={rightElement?.width}>
-            {rightElement.ele}
-          </InputRightElement>
-        )}
-      </InputGroup>
+      <OutlinedInput
+        id={id}
+        type={type}
+        placeholder={placeholder}
+        onChange={onChange}
+        onKeyPress={onKeyPress}
+        onBlur={onBlur}
+        name={name}
+        error={Boolean(errorMessage)}
+        sx={{
+          backgroundColor: '#fff',
+          border: '1px solid',
+          borderColor: '#ccc',
+        }}
+        {...(leftElement
+          ? {
+              startAdornment: (
+                <InputAdornment position="start">
+                  {leftElement.ele}
+                </InputAdornment>
+              ),
+            }
+          : {})}
+        {...(rightElement
+          ? {
+              endAdornment: (
+                <InputAdornment position="end">
+                  {rightElement.ele}
+                </InputAdornment>
+              ),
+            }
+          : {})}
+      />
       {!noHelpText && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </Box>
   );

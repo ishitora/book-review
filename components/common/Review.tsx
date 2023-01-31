@@ -13,15 +13,7 @@ const Review = ({ review }: { review: TReview }) => {
       <RatingDisplay rating={review.rating} />
       <Box sx={{ padding: '12px 0' }}>
         {' '}
-        <Heading
-          as="h4"
-          size="md"
-          sx={{
-            color(theme) {
-              return theme.colors.primary[800];
-            },
-          }}
-        >
+        <Heading as="h4" size="md">
           {review.title}
         </Heading>
         <Text>{review.content}</Text>

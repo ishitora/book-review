@@ -7,10 +7,9 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
   AlertDialogCloseButton,
-  Button,
   Stack,
 } from '@chakra-ui/react';
-
+import CustomButton from '@/components/common/CustomButton';
 import useBookStatus from './hooks/useBookStatus';
 import type { BookStatus } from '@/types/book';
 
@@ -46,9 +45,9 @@ const BookStatusDialog = ({ id, status, renderButton }: Props) => {
       {renderButton ? (
         renderButton(handleOpen)
       ) : (
-        <Button onClick={handleOpen} variant="outline">
+        <CustomButton onClick={handleOpen}>
           {typeof status === 'number' ? buttonText[status] : '加入書櫃'}
-        </Button>
+        </CustomButton>
       )}
 
       <AlertDialog
@@ -65,32 +64,32 @@ const BookStatusDialog = ({ id, status, renderButton }: Props) => {
           <AlertDialogCloseButton ref={cancelRef} />
           <AlertDialogBody>
             <Stack spacing="16px">
-              <Button
+              <CustomButton
                 onClick={handleClick(0)}
-                variant={status === 0 ? 'solid' : 'outline'}
+                //variant={status === 0 ? 'solid' : 'outline'}
               >
                 想讀
-              </Button>
-              <Button
+              </CustomButton>
+              <CustomButton
                 onClick={handleClick(1)}
-                variant={status === 1 ? 'solid' : 'outline'}
+                // variant={status === 1 ? 'solid' : 'outline'}
               >
                 正在閱讀
-              </Button>
-              <Button
+              </CustomButton>
+              <CustomButton
                 onClick={handleClick(2)}
-                variant={status === 2 ? 'solid' : 'outline'}
+                //variant={status === 2 ? 'solid' : 'outline'}
               >
                 已完成
-              </Button>
+              </CustomButton>
               {typeof status === 'number' && (
-                <Button
+                <CustomButton
                   onClick={handleDeleteOpen}
-                  colorScheme="red"
-                  variant="link"
+                  // colorScheme="red"
+                  // variant="link"
                 >
                   移出書櫃
-                </Button>
+                </CustomButton>
               )}
             </Stack>
           </AlertDialogBody>
@@ -115,16 +114,14 @@ const BookStatusDialog = ({ id, status, renderButton }: Props) => {
               將書本移出書櫃將會刪除全部閱讀紀錄，確定繼續?
             </AlertDialogBody>
             <AlertDialogFooter>
-              <Button
+              <CustomButton
                 ref={cancelRef}
                 onClick={handleDeleteClose}
-                variant="outline"
+                // variant="outline"
               >
                 取消
-              </Button>
-              <Button colorScheme="red" onClick={removeBook} ml={3}>
-                確認刪除
-              </Button>
+              </CustomButton>
+              <CustomButton onClick={removeBook}>確認刪除</CustomButton>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialogOverlay>

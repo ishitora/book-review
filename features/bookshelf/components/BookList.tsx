@@ -23,9 +23,6 @@ const BookList = ({ books, page, changePage }: Props) => {
             sx={{
               fontSize: '16px',
               fontWeight: 600,
-              color(theme) {
-                return theme.colors.primary.dark;
-              },
             }}
             as={NextLink}
             href="/search"

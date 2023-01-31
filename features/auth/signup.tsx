@@ -1,12 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Box, Button, Heading, Text } from '@chakra-ui/react';
+import { Box, Heading, Text } from '@chakra-ui/react';
 import { MdVpnKey, MdMail, MdAccountCircle } from 'react-icons/md';
 
 import Input from '@/components/common/Input';
 import { Controller } from 'react-hook-form';
-
+import CustomButton from '@/components/common/CustomButton';
 import useSignup from './hooks/useSignup';
 
 const Signup = () => {
@@ -63,7 +63,7 @@ const Signup = () => {
             >
               感謝您的註冊，請至登入頁面登入
             </Text>
-            <Button
+            <CustomButton
               sx={{
                 marginTop: 'auto',
                 padding: '12px',
@@ -71,7 +71,7 @@ const Signup = () => {
               onClick={goToLogin}
             >
               前往登入頁
-            </Button>
+            </CustomButton>
           </>
         ) : (
           <>
@@ -177,7 +177,7 @@ const Signup = () => {
               已有帳號?
               <Link href="/login">登入</Link>
             </Box>
-            <Button type="submit">註冊</Button>
+            <CustomButton type="submit">註冊</CustomButton>
           </>
         )}
       </Box>

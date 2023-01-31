@@ -29,9 +29,6 @@ const Header = () => {
         borderRight: '1px solid #eee',
         minHeight: '550px',
         '@media screen and (max-width: 600px)': {},
-        borderColor(theme) {
-          return theme.colors.primary.dark;
-        },
       }}
     >
       <Box

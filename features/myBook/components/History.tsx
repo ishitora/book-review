@@ -12,15 +12,7 @@ type Props = {
 const History = ({ status, create_date, start_date, finish_date }: Props) => {
   return (
     <Box>
-      <Heading
-        as="h3"
-        size="lg"
-        sx={{
-          color(theme) {
-            return theme.colors.primary[800];
-          },
-        }}
-      >
+      <Heading as="h3" size="lg">
         {bookshelfStatus[status]}
       </Heading>
       <Box sx={{ display: 'flex', marginTop: '20px' }}>
@@ -41,9 +33,9 @@ const History = ({ status, create_date, start_date, finish_date }: Props) => {
               sx={{
                 borderWidth: '3px',
                 opacity: 1,
-                borderColor(theme) {
-                  return start_date ? theme.colors.primary[700] : '#ccc';
-                },
+                // borderColor(theme) {
+                //   return start_date ? theme.colors.primary[700] : '#ccc';
+                // },
               }}
             />
           </Center>
@@ -54,9 +46,9 @@ const History = ({ status, create_date, start_date, finish_date }: Props) => {
               sx={{
                 borderWidth: '3px',
                 opacity: 1,
-                borderColor(theme) {
-                  return finish_date ? theme.colors.primary[700] : '#ccc';
-                },
+                // borderColor(theme) {
+                //   return finish_date ? theme.colors.primary[700] : '#ccc';
+                // },
               }}
             />
           </Center>

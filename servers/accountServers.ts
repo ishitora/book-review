@@ -3,6 +3,7 @@ import type { TMyBook } from '@/types/book';
 interface Account {
   name: string;
   myBooks: TMyBook[];
+  avatar: string;
 }
 
 interface LoginData {

@@ -1,8 +1,7 @@
 import dbConnect from '@/utils/dbConnect';
 import jwt from 'jsonwebtoken';
 import User from '@/models/User';
-import { getToken, decode } from 'next-auth/jwt';
-import { constants } from 'zlib';
+import { decode } from 'next-auth/jwt';
 
 const userExtractor = async (req, res, next) => {
   try {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Box, Button } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
+import CustomButton from '@/components/common/CustomButton';
 
 type Props = { description: string };
 
@@ -58,14 +59,14 @@ const Description = ({ description }: Props) => {
         </Box>
       </Box>
       {!isViewAll && isMoreThen4Lines && (
-        <Button
-          variant="link"
+        <CustomButton
+          // variant="link"
           onClick={() => {
             setIsViewAll(true);
           }}
         >
           查看全部
-        </Button>
+        </CustomButton>
       )}
     </>
   );

@@ -6,7 +6,7 @@ import {
   ArrowLeftIcon,
   ArrowRightIcon,
 } from '@chakra-ui/icons';
-
+import CustomButton from '@/components/common/CustomButton';
 import getPaginationConfig from './utils/getPaginationConfig';
 
 export interface Pagination {
@@ -57,15 +57,15 @@ const Pagination = ({ p, count, total, changePage }: PaginationProps) => {
         )}
 
         {pages.map((page) => (
-          <Button
+          <CustomButton
             key={page}
-            colorScheme={page === Number(p) ? 'primary' : 'gray'}
+            //   colorScheme={page === Number(p) ? 'primary' : 'gray'}
             onClick={() => {
               changePage(page);
             }}
           >
             {page}
-          </Button>
+          </CustomButton>
         ))}
 
         {!isMobile && (

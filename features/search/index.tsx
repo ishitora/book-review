@@ -2,11 +2,12 @@ import React from 'react';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import Pagination from '@/components/Pagination/index';
-import { Box, Text } from '@chakra-ui/react';
+
 import { fetcher } from '@/servers/API';
 import { TSearchBook } from '@/types/book';
 import BookCard from './components/BookCard';
 import SearchSkeleton from './components/SearchSkeleton';
+import Box from '@mui/material/Box';
 
 const Search = () => {
   const router = useRouter();
@@ -28,32 +29,11 @@ const Search = () => {
     <Box>
       <Box>
         搜尋關鍵字：
-        <Text
-          as="span"
-          sx={{
-            fontWeight: 600,
-            color(theme) {
-              return theme.colors.primary.main;
-            },
-          }}
-        >
-          {keyword}
-        </Text>
+        {keyword}
         {data ? (
           <>
             {' '}
-            共
-            <Text
-              as="span"
-              sx={{
-                fontWeight: 600,
-                color(theme) {
-                  return theme.colors.primary.main;
-                },
-              }}
-            >
-              {data.total}
-            </Text>
+            共{data.total}
             筆結果
           </>
         ) : (
@@ -66,18 +46,7 @@ const Search = () => {
       {data ? (
         data.total === 0 ? (
           <Box sx={{ padding: '20px 0' }}>
-            找不到{' '}
-            <Text
-              as="span"
-              sx={{
-                fontWeight: 600,
-                color(theme) {
-                  return theme.colors.primary.main;
-                },
-              }}
-            >
-              {keyword}
-            </Text>{' '}
+            找不到 {keyword}
             相關結果
           </Box>
         ) : (
@@ -95,9 +64,7 @@ const Search = () => {
             />
           </>
         )
-      ) : (
-        <SearchSkeleton />
-      )}
+      ) : null}
     </Box>
   );
 };

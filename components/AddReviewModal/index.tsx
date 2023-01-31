@@ -9,12 +9,11 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Button,
   Textarea,
   Text,
   Box,
 } from '@chakra-ui/react';
-
+import CustomButton from '@/components/common/CustomButton';
 import Input from '@/components/common/Input';
 import ErrorMessage from '@/components/common/ErrorMessage';
 import useReviewForm from './hooks/useReviewForm';
@@ -46,7 +45,7 @@ const AddReviewModal = ({
       {renderButton ? (
         renderButton(handleOpen)
       ) : (
-        <Button onClick={handleOpen}>評論</Button>
+        <CustomButton onClick={handleOpen}>評論</CustomButton>
       )}
 
       <Modal isOpen={isOpen} onClose={handleClose}>
@@ -108,12 +107,8 @@ const AddReviewModal = ({
             </ModalBody>
 
             <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={handleClose}>
-                取消
-              </Button>
-              <Button colorScheme="primary" onClick={onSubmit}>
-                提交
-              </Button>
+              <CustomButton onClick={handleClose}>取消</CustomButton>
+              <CustomButton onClick={onSubmit}>提交</CustomButton>
             </ModalFooter>
           </FormProvider>
         </ModalContent>

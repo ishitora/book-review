@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import useSWR from 'swr';
-import { Box, Text, Stack, Button, Heading, Divider } from '@chakra-ui/react';
+import { Box, Text, Stack, Heading, Divider } from '@chakra-ui/react';
 import { useAppSelector } from '@/hooks/redux';
 
 import AddReviewModal from '@/components/AddReviewModal';
@@ -11,7 +11,7 @@ import Review from '@/components/common/Review';
 import Ratings from '@/components/Ratings/Ratings';
 
 import reviewServers from '@/servers/reviewServers';
-
+import CustomButton from '@/components/common/CustomButton';
 import type { TBookDetail } from '@/types/book';
 import type { TReview } from '@/types/review';
 
@@ -70,7 +70,7 @@ const BookDetail = ({ book }: { book: TBookDetail }) => {
             <BookStatusDialog id={book.id} status={status} />
             <AddReviewModal
               renderButton={(onClick) => (
-                <Button onClick={onClick}>新增評論</Button>
+                <CustomButton onClick={onClick}>新增評論</CustomButton>
               )}
               afterSubmit={() => {
                 mutate();

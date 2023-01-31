@@ -40,7 +40,7 @@ const useLoginForm = () => {
     dispatch(login(data))
       .unwrap()
       .then(() => {
-        router.push('/bookshelf');
+        router.push('/');
       })
       .catch((error) => {
         openToast('error', error.message || '發生錯誤');

@@ -1,52 +1,48 @@
-import { useEffect } from 'react';
+import React from 'react';
+import Head from 'next/head';
 import type { AppProps } from 'next/app';
-import { useRouter } from 'next/router';
 import { Provider } from 'react-redux';
+
 import { SessionProvider } from 'next-auth/react';
 
-import store from '@/utils/store';
-import { ChakraProvider } from '@chakra-ui/react';
+import { CacheProvider, EmotionCache } from '@emotion/react';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from '@/utils/theme';
+import createEmotionCache from '@/utils/createEmotionCache';
+
 import Layout from '@/components/Layout/Layout';
 import '../styles/reset.css';
 import '../styles/globals.css';
 
-import theme from '@/utils/theme';
-import { getAccount } from '@/slices/accountSlice';
-import { useSession } from 'next-auth/react';
-function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-  const router = useRouter();
+import store from '@/utils/store';
 
-  // useEffect(() => {
-  //   if (
-  //     !store.getState().account?.isLogin &&
-  //     !store.getState().account?.isLoading &&
-  //     !(router.asPath === '/login' || router.asPath === '/signup')
-  //   ) {
-  //     router.push('/login');
-  //   }
-  // }, [router]);
+const clientSideEmotionCache = createEmotionCache();
 
-  // useEffect(() => {
-  //   store.dispatch(getAccount()).then(() => {
-  //     if (
-  //       !store.getState().account?.isLogin &&
-  //       !store.getState().account?.isLoading &&
-  //       !(router.asPath === '/login' || router.asPath === '/signup')
-  //     ) {
-  //       router.push('/login');
-  //     }
-  //   });
-  // }, []);
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache;
+}
 
+function MyApp({
+  Component,
+  emotionCache = clientSideEmotionCache,
+  pageProps: { session, ...pageProps },
+}: MyAppProps) {
   return (
     <Provider store={store}>
-      <ChakraProvider theme={theme}>
-        <SessionProvider session={session}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </SessionProvider>
-      </ChakraProvider>
+      <CacheProvider value={emotionCache}>
+        <Head>
+          <meta name="viewport" content="initial-scale=1, width=device-width" />
+        </Head>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <SessionProvider session={session}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </SessionProvider>
+        </ThemeProvider>
+      </CacheProvider>
     </Provider>
   );
 }

@@ -1,9 +1,20 @@
 export const CATEGORIES = {
-  ARCHITECTURE: '建築',
-  ART: '藝術',
-  MATHEMATICS: '數學',
-  MEDICAL: '醫學',
+  Art: '藝術',
+  'Business & Economics': '經濟與商業',
+  Cooking: '烹飪',
+  Nature: '自然',
+  History: '歷史',
+  Mathematics: '數學',
+  Science: '科學',
+  Medical: '醫學',
+  Fiction: '小說',
+  Psychology: '心理學',
+  Pets: '寵物',
+  'Technology & Engineering': '技術與工程',
+  'Social Science': '社會學',
   'Comics & Graphic Novels': '漫畫與視覺小說',
+  Philosophy: '哲學',
+  'Antiques & Collectibles': '古董收藏品',
 };
 
 export const bookshelfStatus = {
