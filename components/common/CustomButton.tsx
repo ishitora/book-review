@@ -30,7 +30,7 @@ const variants = {
 
 const CustomButton = (props) => {
   const { onClick, children, variant, ...rest } = props;
-  console.log('variant', variant, variants[variant]);
+
   return (
     <Button
       disableElevation

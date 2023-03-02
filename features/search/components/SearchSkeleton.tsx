@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box, Skeleton, SkeletonText } from '@chakra-ui/react';
-
+import { Box, SkeletonText } from '@chakra-ui/react';
+import Skeleton from '@mui/material/Skeleton';
 const arr = new Array(10).fill(0);
 
 const SearchSkeleton = () => {

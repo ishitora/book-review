@@ -14,7 +14,7 @@ const Search = () => {
   const { keyword, p } = router.query;
 
   const { data } = useSWR<{ total: number; books: TSearchBook[] }, Error>(
-    keyword && p ? `/api/search/${keyword}?p=${p}` : null,
+    keyword && p ? `/api/search?keyword=${keyword}&p=${p}` : null,
     fetcher<{ total: number; books: TSearchBook[] }>
   );
   const changePage = (page: number) => {

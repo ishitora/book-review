@@ -8,6 +8,7 @@ const bookSchema = new Schema({
   publisher: String,
   publishedDate: String,
   categories: [String],
+  category: String,
   price: Number,
   image: String,
   ISBN: String,

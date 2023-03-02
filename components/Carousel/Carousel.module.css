@@ -1,0 +1,14 @@
+.swiper {
+  width: min(100vw, 1200px);
+  height: min(40vw, 480px);
+}
+@media (max-width: 600px) {
+  .swiper {
+    height: min(80vw, 480px);
+  }
+}
+
+.swiper-slide > img {
+  width: 100%;
+  object-fit: cover;
+}

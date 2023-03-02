@@ -69,6 +69,7 @@ const Layout = (props: Props) => {
       ) : (
         <SideBar />
       )} */}
+      <Header toggle={setIsOpen.toggle} />
       <Box
         as="main"
         sx={{
@@ -79,14 +80,13 @@ const Layout = (props: Props) => {
             maxWidth: '100vw',
           },
           '&>div': {
-            padding: '20px 40px',
+            // padding: '20px 40px',
             '@media (max-width: 600px)': {
-              padding: '12px',
+              //   padding: '12px',
             },
           },
         }}
       >
-        <Header toggle={setIsOpen.toggle} />
         {props.children}
       </Box>
       {/* <Footer /> */}

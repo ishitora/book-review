@@ -1,0 +1,8 @@
+.swiper {
+  width: min(100vw, 1200px);
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+}

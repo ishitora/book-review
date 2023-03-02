@@ -73,7 +73,8 @@ const BookCard = ({ info }: Props) => {
         <Link
           sx={{
             fontSize: '16px',
-            fontWeight: 600,
+            fontWeight: 500,
+            color: '#000',
           }}
           as={NextLink}
           href={`/myBooks/${book.id}`}

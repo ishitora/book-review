@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { IconButton, Heading, useMediaQuery } from '@chakra-ui/react';
+import Image from 'next/image';
+
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 import { useRouter } from 'next/router';
 import Avatar from '@mui/material/Avatar';
-import { pathName } from '@/constants/constant';
 import SearchBar from '@/components/common/SearchBar';
 import { getAccount } from '@/slices/accountSlice';
-import { MdNavigateBefore, MdMenu } from 'react-icons/md';
+
 import { useSession, signOut } from 'next-auth/react';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { logout } from '@/slices/accountSlice';
 import CustomButton from '@/components/common/CustomButton';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 
 const Header = ({ toggle }: { toggle: () => void }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -27,10 +27,6 @@ const Header = ({ toggle }: { toggle: () => void }) => {
   const dispatch = useAppDispatch();
   const account = useAppSelector((state) => state.account);
   const router = useRouter();
-  const [isMobile] = useMediaQuery('(max-width: 768px)', {
-    ssr: true,
-    fallback: true,
-  });
 
   const { status } = useSession();
   const isLogining = useRef(true);
@@ -48,111 +44,126 @@ const Header = ({ toggle }: { toggle: () => void }) => {
     <Box
       component="header"
       sx={{
-        padding: '12px 40px',
         height: '70px',
-        display: 'flex',
-        alignItems: 'center',
         borderBottom: '2px solid #eee',
-        '&>* + *': {
-          marginLeft: '12px',
-        },
         '@media (max-width: 600px)': {
-          padding: '12px',
+          height: '140px',
         },
       }}
     >
-      {isMobile && (
-        <IconButton
-          variant="ghost"
-          aria-label="toggle sidebar"
-          onClick={toggle}
-          icon={<MdMenu style={{ fontSize: '24px' }} />}
-        />
-      )}
-      {(router.asPath.startsWith('/book/') ||
-        router.asPath.startsWith('/myBooks/')) && (
-        <IconButton
-          variant="ghost"
-          aria-label="previous page"
-          onClick={() => {
-            router.back();
-          }}
-          icon={<MdNavigateBefore style={{ fontSize: '24px' }} />}
-        />
-      )}
-      {pathName[router.pathname] && (
-        <Heading as="h3" size="md">
-          {pathName[router.pathname]}
-        </Heading>
-      )}
-      <SearchBar />
+      <Box
+        sx={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '12px 20px',
+          height: '70px',
+          display: 'flex',
+          alignItems: 'center',
+          borderBottom: '2px solid #eee',
 
-      {account.isLogin && account.info ? (
-        <>
-          {' '}
-          <CustomButton
-            startIcon={
-              <Avatar alt="user icon" src={account.info.avatar}>
-                {account.info.name}
-              </Avatar>
-            }
-            variant="text"
-            onClick={handleClick}
-          >
-            <Box
-              component="span"
-              sx={{
-                maxWidth: '100px',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-              }}
-            >
-              {account.info.name}
-            </Box>
-          </CustomButton>
-          <Menu
-            id="demo-positioned-menu"
-            aria-labelledby="demo-positioned-button"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'left',
-            }}
-          >
-            <MenuItem onClick={handleClose}>我的書櫃</MenuItem>
-            <MenuItem onClick={handleClose}>個人資料</MenuItem>
-            <MenuItem
-              onClick={() => {
-                dispatch(logout());
-                signOut();
-                router.push('/');
-                handleClose();
-              }}
-            >
-              登出
-            </MenuItem>
-          </Menu>
-        </>
-      ) : (
-        <CustomButton
-          //  size="lg"
-          //  variant="ghost"
-          variant="text"
-          onClick={() => {
-            dispatch(logout());
-            signOut();
-            router.push('/');
+          '@media (min-width: 600px)': {
+            '&>* + *': {
+              marginLeft: '12px',
+            },
+          },
+          '@media (max-width: 600px)': {
+            justifyContent: 'space-between',
+            padding: '12px',
+            flexWrap: 'wrap',
+            height: '140px',
+          },
+        }}
+      >
+        <Box
+          sx={{
+            '@media (min-width: 600px)': {
+              marginRight: '40px',
+            },
           }}
         >
-          登入
-        </CustomButton>
-      )}
+          <Image
+            src="/image/logo.svg"
+            alt="main-logo"
+            width={64}
+            height={64}
+            onClick={() => {
+              router.push('/');
+            }}
+          />
+        </Box>
+
+        <SearchBar />
+
+        {account.isLogin && account.info ? (
+          <>
+            {' '}
+            <CustomButton
+              startIcon={
+                <Avatar alt="user icon" src={account.info.avatar}>
+                  {account.info.name}
+                </Avatar>
+              }
+              variant="text"
+              onClick={handleClick}
+            >
+              <Box
+                component="span"
+                sx={{
+                  maxWidth: '100px',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                {account.info.name}
+              </Box>
+            </CustomButton>
+            <Menu
+              id="demo-positioned-menu"
+              aria-labelledby="demo-positioned-button"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+            >
+              <MenuItem
+                onClick={() => {
+                  router.push('/bookshelf');
+                  handleClose();
+                }}
+              >
+                我的書櫃
+              </MenuItem>
+              <MenuItem onClick={handleClose}>個人資料</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  dispatch(logout());
+                  signOut();
+                  router.push('/');
+                  handleClose();
+                }}
+              >
+                登出
+              </MenuItem>
+            </Menu>
+          </>
+        ) : (
+          <CustomButton
+            variant="text"
+            onClick={() => {
+              router.push('/login');
+            }}
+          >
+            登入
+          </CustomButton>
+        )}
+      </Box>
     </Box>
   );
 };

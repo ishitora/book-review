@@ -1,13 +1,32 @@
 import React from 'react';
-import { IconButton, Box, Button, useMediaQuery } from '@chakra-ui/react';
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon,
-} from '@chakra-ui/icons';
-import CustomButton from '@/components/common/CustomButton';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+
 import getPaginationConfig from './utils/getPaginationConfig';
+
+const PaginationButton = styled(Button)({
+  minWidth: '0px',
+  fontSize: '14px',
+  padding: '4px 12px',
+  border: '1px solid #ccc',
+  backgroundColor: 'transparent',
+  color: '#888',
+  borderRadius: 0,
+  '&:hover': {
+    backgroundColor: '#eee',
+  },
+  '&:disabled': {
+    color: '#fff',
+    cursor: 'not-allowed',
+  },
+});
 
 export interface Pagination {
   p: number;
@@ -22,10 +41,7 @@ export interface PaginationProps extends Pagination {
 }
 
 const Pagination = ({ p, count, total, changePage }: PaginationProps) => {
-  const [isMobile] = useMediaQuery('(max-width: 768px)', {
-    ssr: true,
-    fallback: true,
-  });
+  const isMobile = useMediaQuery('(max-width: 768px)', { noSsr: true });
   const { pages, disablePre, disableNext } = getPaginationConfig({
     p,
     count,
@@ -35,57 +51,71 @@ const Pagination = ({ p, count, total, changePage }: PaginationProps) => {
 
   return (
     <Box display="flex">
-      <Box m="0 auto" display="flex" gap="8px">
-        <IconButton
+      <Box m="0 auto" display="flex">
+        <PaginationButton
           aria-label="first page"
-          icon={<ArrowLeftIcon />}
           disabled={disablePre}
           onClick={() => {
             changePage(1);
           }}
-        />
+        >
+          <KeyboardDoubleArrowLeftIcon />
+        </PaginationButton>
 
         {!isMobile && (
-          <IconButton
+          <PaginationButton
             aria-label="previous page"
-            icon={<ChevronLeftIcon h={7} w={7} />}
             disabled={disablePre}
             onClick={() => {
               changePage(p - 1);
             }}
-          />
+          >
+            <ChevronLeftIcon />
+          </PaginationButton>
         )}
 
         {pages.map((page) => (
-          <CustomButton
+          <PaginationButton
             key={page}
             //   colorScheme={page === Number(p) ? 'primary' : 'gray'}
+            sx={
+              page === Number(p)
+                ? {
+                    backgroundColor: '#888',
+                    borderColor: '#888',
+                    color: '#fff',
+                  }
+                : {}
+            }
+            disabled={page === Number(p) ? true : false}
             onClick={() => {
               changePage(page);
             }}
           >
             {page}
-          </CustomButton>
+          </PaginationButton>
         ))}
 
         {!isMobile && (
-          <IconButton
+          <PaginationButton
             aria-label="next page"
-            icon={<ChevronRightIcon h={7} w={7} />}
             disabled={disableNext}
             onClick={() => {
               changePage(p + 1);
             }}
-          />
+          >
+            <ChevronRightIcon />
+          </PaginationButton>
         )}
-        <IconButton
+        <PaginationButton
           aria-label="last page"
-          icon={<ArrowRightIcon />}
           disabled={disableNext}
           onClick={() => {
             changePage(Math.ceil(total / count));
           }}
-        />
+        >
+          <KeyboardDoubleArrowRightIcon />
+        </PaginationButton>
       </Box>
     </Box>
   );
