@@ -16,7 +16,6 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 export default function Home({ layouts }) {
-  console.log('layouts', layouts);
   return (
     <>
       <Head>

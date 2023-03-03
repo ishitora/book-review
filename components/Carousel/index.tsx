@@ -12,9 +12,7 @@ import { useMediaQuery } from '@mui/material';
 
 import styles from './Carousel.module.css';
 
-type Props = {};
-
-const Carousel = (props: Props) => {
+const Carousel = () => {
   const isMobile = useMediaQuery('(max-width: 600px)', { noSsr: true });
 
   return (

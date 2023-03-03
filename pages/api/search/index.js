@@ -10,9 +10,6 @@ const sliceByPage = (arr, page) => {
 
 const handler = nc().get(async (req, res) => {
   await dbConnect();
-  console.log('req.query', req.query);
-
-  req.query.catelogy;
 
   const allBooks = await Book.find({}).populate({
     path: 'ratings',
@@ -21,18 +18,30 @@ const handler = nc().get(async (req, res) => {
     },
   });
 
-  //   for (const book of allBooks) {
-  //     book.category = book.categories?.[0] || '';
-  //     console.log(book);
-  //     await book.save();
-  //   }
-  // 搜尋後用全部結果 分頁 一次10個
-  const findBooks = allBooks.filter((book) =>
+  const categories = {};
+
+  const searchedBooks = allBooks.filter((book) =>
     book?.title?.includes(req.query.keyword)
   );
 
+  for (const book of searchedBooks) {
+    if (book.category) {
+      categories[book.category] = categories[book.category]
+        ? categories[book.category] + 1
+        : 1;
+    }
+  }
+
+  const findBooks = searchedBooks.filter(
+    (book) =>
+      !req.query.catelogy ||
+      book.category === req.query.catelogy.replace('%26', '&')
+  );
+
   const searchRes = {
-    total: findBooks.length,
+    total: searchedBooks.length,
+    count: findBooks.length,
+    categories,
     books: sliceByPage(findBooks, req.query.p),
   };
 

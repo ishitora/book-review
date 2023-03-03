@@ -47,6 +47,7 @@ const CustomInput = ({
   return (
     <Box>
       <OutlinedInput
+        fullWidth
         id={id}
         type={type}
         placeholder={placeholder}
@@ -59,6 +60,9 @@ const CustomInput = ({
           backgroundColor: '#fff',
           border: '1px solid',
           borderColor: '#ccc',
+          '&>input:-webkit-autofill': {
+            transition: 'background-color 600000s 0s, color 600000s 0s',
+          },
         }}
         {...(leftElement
           ? {

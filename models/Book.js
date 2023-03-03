@@ -7,7 +7,6 @@ const bookSchema = new Schema({
   description: String,
   publisher: String,
   publishedDate: String,
-  categories: [String],
   category: String,
   price: Number,
   image: String,
@@ -20,6 +19,8 @@ const bookSchema = new Schema({
     default: [],
   },
 });
+
+bookSchema.index({ title: 1 });
 
 bookSchema.virtual('ratings', {
   ref: 'Review',

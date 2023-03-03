@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
 const axiosInstance = axios.create({
   baseURL: process.env.BASE_URL,
-  timeout: 10000,
+  timeout: 30000,
 });
 
 const api = (axios: AxiosInstance) => {

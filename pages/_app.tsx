@@ -10,7 +10,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '@/utils/theme';
 import createEmotionCache from '@/utils/createEmotionCache';
-
+import { StyledEngineProvider } from '@mui/material/styles';
 import Layout from '@/components/Layout/Layout';
 import '../styles/reset.css';
 import '../styles/globals.css';
@@ -30,19 +30,25 @@ function MyApp({
 }: MyAppProps) {
   return (
     <Provider store={store}>
-      <CacheProvider value={emotionCache}>
-        <Head>
-          <meta name="viewport" content="initial-scale=1, width=device-width" />
-        </Head>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <SessionProvider session={session}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </SessionProvider>
-        </ThemeProvider>
-      </CacheProvider>
+      <StyledEngineProvider injectFirst>
+        <CacheProvider value={emotionCache}>
+          <Head>
+            <meta
+              name="viewport"
+              content="initial-scale=1, width=device-width"
+            />
+          </Head>
+
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <SessionProvider session={session}>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </SessionProvider>
+          </ThemeProvider>
+        </CacheProvider>
+      </StyledEngineProvider>
     </Provider>
   );
 }

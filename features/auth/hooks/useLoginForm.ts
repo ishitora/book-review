@@ -53,6 +53,9 @@ const useLoginForm = () => {
     errors,
     isDisplayPassword,
     toggleIsDisplayPassword: setIsDisplayPassword.toggle,
+    goHome: () => {
+      router.push('/');
+    },
   };
 };
 

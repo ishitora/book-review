@@ -73,7 +73,16 @@ const useSignup = () => {
     router.push('/login');
   };
 
-  return { control, errors, onSubmit, isSignup, goToLogin };
+  return {
+    control,
+    errors,
+    onSubmit,
+    isSignup,
+    goToLogin,
+    goHome: () => {
+      router.push('/');
+    },
+  };
 };
 
 export default useSignup;

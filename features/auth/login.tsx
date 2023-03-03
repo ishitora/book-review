@@ -1,15 +1,20 @@
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { Controller } from 'react-hook-form';
-import { Box, Heading, IconButton } from '@chakra-ui/react';
+import { Heading } from '@chakra-ui/react';
 import { MdVpnKey, MdMail } from 'react-icons/md';
 
 import Input from '@/components/common/Input';
-import { MdVisibilityOff, MdVisibility } from 'react-icons/md';
+import IconButton from '@mui/material/IconButton';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import useLoginForm from './hooks/useLoginForm';
 import { signIn } from 'next-auth/react';
 import CustomButton from '@/components/common/CustomButton';
+import Box from '@mui/material/Box';
+
 const Login = () => {
   const {
     onSubmit,
@@ -17,11 +22,12 @@ const Login = () => {
     errors,
     isDisplayPassword,
     toggleIsDisplayPassword,
+    goHome,
   } = useLoginForm();
 
   return (
     <Box
-      bgColor="gray.100"
+      // bgColor="gray.100"
       sx={{
         display: 'flex',
         justifyContent: 'center',
@@ -30,21 +36,33 @@ const Login = () => {
       }}
     >
       <Box
-        as="form"
+        component="form"
         sx={{
           flex: '0 0 350px',
-          height: '400px',
+          height: '600px',
           display: 'flex',
           flexDirection: 'column',
           backgroundColor: 'white',
           borderRadius: '20px',
-          padding: '30px 60px',
+          padding: '30px',
           '&>* + *': {
             marginTop: '12px',
           },
         }}
         onSubmit={onSubmit}
       >
+        <Image
+          src="/image/logo.svg"
+          alt="main-logo"
+          width={128}
+          height={128}
+          onClick={goHome}
+          style={{
+            cursor: 'pointer',
+            alignSelf: 'center',
+          }}
+        />
+
         <Heading
           as="h3"
           size="lg"
@@ -69,7 +87,6 @@ const Login = () => {
                 value={value}
                 onBlur={onBlur}
                 onChange={onChange}
-                size="lg"
               />
             )}
           />
@@ -85,17 +102,15 @@ const Login = () => {
                 rightElement={{
                   ele: (
                     <IconButton
-                      variant="unstyled"
                       aria-label="displayPassword"
                       onClick={toggleIsDisplayPassword}
-                      icon={
-                        isDisplayPassword ? (
-                          <MdVisibilityOff style={{ fontSize: '24px' }} />
-                        ) : (
-                          <MdVisibility style={{ fontSize: '24px' }} />
-                        )
-                      }
-                    ></IconButton>
+                    >
+                      {isDisplayPassword ? (
+                        <VisibilityOffIcon />
+                      ) : (
+                        <VisibilityIcon />
+                      )}
+                    </IconButton>
                   ),
                 }}
                 id="password"
@@ -106,22 +121,56 @@ const Login = () => {
                 onBlur={onBlur}
                 onChange={onChange}
                 name={name}
-                size="lg"
               />
             )}
           />
         </Box>
         <Box>
-          {/* <Link href="/forgotPassword">忘記密碼</Link> */}
           還沒有帳號?<Link href="/signup">註冊</Link>
         </Box>
-        <CustomButton onClick={() => signIn('google')}>
-          使用google登入
+
+        <CustomButton sx={{ marginTop: '12px' }} type="submit">
+          登入
         </CustomButton>
-        <CustomButton onClick={() => signIn('facebook')}>
-          使用facebook登入
-        </CustomButton>
-        <CustomButton type="submit">登入</CustomButton>
+
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            '&>button': {
+              flex: '0 0 48%',
+            },
+          }}
+        >
+          <CustomButton variant="common" onClick={() => signIn('google')}>
+            <Image
+              src="/image/google.png"
+              alt="google image"
+              width={20}
+              height={20}
+              style={{
+                marginRight: '12px',
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            />
+            google登入
+          </CustomButton>
+          <CustomButton variant="common" onClick={() => signIn('facebook')}>
+            <Image
+              src="/image/facebook.png"
+              alt="facebook image"
+              width={20}
+              height={20}
+              style={{
+                marginRight: '12px',
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            />
+            fb 登入
+          </CustomButton>
+        </Box>
       </Box>
     </Box>
   );

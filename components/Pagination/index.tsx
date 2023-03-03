@@ -25,6 +25,9 @@ const PaginationButton = styled(Button)({
   '&:disabled': {
     color: '#fff',
     cursor: 'not-allowed',
+    '&>svg': {
+      color: '#888',
+    },
   },
 });
 
@@ -50,7 +53,7 @@ const Pagination = ({ p, count, total, changePage }: PaginationProps) => {
   });
 
   return (
-    <Box display="flex">
+    <Box sx={{ display: 'flex', gridArea: 'pagination' }}>
       <Box m="0 auto" display="flex">
         <PaginationButton
           aria-label="first page"
@@ -77,7 +80,6 @@ const Pagination = ({ p, count, total, changePage }: PaginationProps) => {
         {pages.map((page) => (
           <PaginationButton
             key={page}
-            //   colorScheme={page === Number(p) ? 'primary' : 'gray'}
             sx={
               page === Number(p)
                 ? {

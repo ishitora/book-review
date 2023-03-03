@@ -14,7 +14,6 @@ const handler = nc().post(async (req, res) => {
     }
     await dbConnect();
     const user = await User.findOne({ email });
-    console.log(user);
     if (user.isOAuth) {
       throw new Error('請使用第三方登入');
     }

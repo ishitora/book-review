@@ -18,6 +18,14 @@ const variants = {
       backgroundColor: 'primary.light',
     },
   },
+  common: {
+    color: '#888',
+    backgroundColor: '#fff',
+    borderColor: '#ccc',
+    '&:hover': {
+      backgroundColor: '#eee',
+    },
+  },
   text: {
     color: 'primary.dark',
     backgroundColor: '#fff',
@@ -29,7 +37,7 @@ const variants = {
 };
 
 const CustomButton = (props) => {
-  const { onClick, children, variant, ...rest } = props;
+  const { onClick, children, variant, sx = {}, ...rest } = props;
 
   return (
     <Button
@@ -38,12 +46,13 @@ const CustomButton = (props) => {
         {
           border: '1px solid',
           textTransform: 'none',
+          padding: '8px 12px',
         },
         variants[variant] || variants.contained,
+        sx,
       ]}
       {...rest}
       onClick={onClick}
-      variant="contained"
     >
       {children}
     </Button>

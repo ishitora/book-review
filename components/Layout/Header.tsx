@@ -86,6 +86,7 @@ const Header = ({ toggle }: { toggle: () => void }) => {
             alt="main-logo"
             width={64}
             height={64}
+            style={{ cursor: 'pointer' }}
             onClick={() => {
               router.push('/');
             }}
@@ -96,7 +97,6 @@ const Header = ({ toggle }: { toggle: () => void }) => {
 
         {account.isLogin && account.info ? (
           <>
-            {' '}
             <CustomButton
               startIcon={
                 <Avatar alt="user icon" src={account.info.avatar}>

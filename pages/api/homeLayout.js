@@ -4,12 +4,15 @@ import dbConnect from '@/utils/dbConnect';
 import Book from '@/models/Book';
 import Review from '@/models/Review';
 const arr = [
-  '638cbc297b9469297a09c859',
-  '638cbc2b7b9469297a09c868',
-  '638cbc297b9469297a09c85c',
-  '638cbc2a7b9469297a09c85f',
-  '638cbc2a7b9469297a09c862',
-  '638cbc2b7b9469297a09c865',
+  '64021744437da6516b92a6a4',
+  '64021744437da6516b92a6a7',
+  '64021744437da6516b92a6aa',
+  '64021744437da6516b92a6b6',
+  '640214dc437da6516b92a30c',
+  '640214dc437da6516b92a30f',
+  '640214dc437da6516b92a318',
+  '64021737437da6516b92a68e',
+  '64021737437da6516b92a691',
 ];
 const handler = nc().get(async (req, res) => {
   await dbConnect();

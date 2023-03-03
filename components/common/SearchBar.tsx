@@ -18,7 +18,7 @@ const SearchBar = () => {
 
   const handleSearch = () => {
     if (keyword.trim() !== '') {
-      router.push(`/search/${keyword.trim()}?p=1`);
+      router.push(`/search?keyword=${keyword.trim()}&p=1`);
       setKeyword('');
     }
   };

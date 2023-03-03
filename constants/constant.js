@@ -15,6 +15,11 @@ export const CATEGORIES = {
   'Comics & Graphic Novels': '漫畫與視覺小說',
   Philosophy: '哲學',
   'Antiques & Collectibles': '古董收藏品',
+  'Caricatures and cartoons': '圖文書',
+  'Literary Collections': '文學收藏',
+  'Young Adult Fiction': '青少年小說',
+  'Crafts & Hobbies': '手工藝和收藏',
+  'Self-Help': '自我成長',
 };
 
 export const bookshelfStatus = {

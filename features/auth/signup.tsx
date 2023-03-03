@@ -10,7 +10,8 @@ import CustomButton from '@/components/common/CustomButton';
 import useSignup from './hooks/useSignup';
 
 const Signup = () => {
-  const { control, errors, onSubmit, isSignup, goToLogin } = useSignup();
+  const { control, errors, onSubmit, isSignup, goToLogin, goHome } =
+    useSignup();
   return (
     <Box
       bgColor="gray.100"
@@ -25,7 +26,7 @@ const Signup = () => {
         as="form"
         sx={{
           flex: '0 0 350px',
-          height: '550px',
+          height: '650px',
           display: 'flex',
           flexDirection: 'column',
           backgroundColor: 'white',
@@ -37,6 +38,18 @@ const Signup = () => {
         }}
         onSubmit={onSubmit}
       >
+        <Image
+          src="/image/logo.svg"
+          alt="main-logo"
+          width={128}
+          height={128}
+          onClick={goHome}
+          style={{
+            cursor: 'pointer',
+            alignSelf: 'center',
+          }}
+        />
+
         {isSignup ? (
           <>
             <Image
@@ -101,7 +114,6 @@ const Signup = () => {
                     value={value}
                     onBlur={onBlur}
                     onChange={onChange}
-                    size="lg"
                   />
                 )}
               />
@@ -122,7 +134,6 @@ const Signup = () => {
                     value={value}
                     onBlur={onBlur}
                     onChange={onChange}
-                    size="lg"
                   />
                 )}
               />
@@ -145,7 +156,6 @@ const Signup = () => {
                     onBlur={onBlur}
                     onChange={onChange}
                     name={name}
-                    size="lg"
                   />
                 )}
               />
@@ -168,7 +178,6 @@ const Signup = () => {
                     onBlur={onBlur}
                     onChange={onChange}
                     name={name}
-                    size="lg"
                   />
                 )}
               />
@@ -177,7 +186,9 @@ const Signup = () => {
               已有帳號?
               <Link href="/login">登入</Link>
             </Box>
-            <CustomButton type="submit">註冊</CustomButton>
+            <CustomButton sx={{ marginTop: '12px' }} type="submit">
+              註冊
+            </CustomButton>
           </>
         )}
       </Box>
