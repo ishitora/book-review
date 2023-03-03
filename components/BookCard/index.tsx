@@ -5,8 +5,6 @@ import { useRouter } from 'next/router';
 
 import Box from '@mui/material/Box';
 
-type Props = {};
-
 const BookCard = ({ book }) => {
   const router = useRouter();
   return (

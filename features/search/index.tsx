@@ -14,6 +14,7 @@ type TSearch = {
   total: number;
   count: number;
   books: TSearchBook[];
+  categories: { [key: string]: number };
 };
 
 const Search = () => {

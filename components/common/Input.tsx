@@ -42,7 +42,6 @@ const CustomInput = ({
   name,
   errorMessage,
   noHelpText,
-  size,
 }: Props) => {
   return (
     <Box>

@@ -54,8 +54,11 @@ const CatelogyList = ({ total, categories }) => {
               return (
                 <ListItemButton
                   selected={
-                    decodeURI(router.query.catelogy).replace('%26', '&') ===
-                    catelogy
+                    decodeURI(
+                      typeof router.query.catelogy === 'string'
+                        ? router.query.catelogy
+                        : ''
+                    ).replace('%26', '&') === catelogy
                   }
                   onClick={() => {
                     setOpen(false);
@@ -115,7 +118,11 @@ const CatelogyList = ({ total, categories }) => {
         return (
           <ListItemButton
             selected={
-              decodeURI(router.query.catelogy).replace('%26', '&') === catelogy
+              decodeURI(
+                typeof router.query.catelogy === 'string'
+                  ? router.query.catelogy
+                  : ''
+              ).replace('%26', '&') === catelogy
             }
             onClick={() => {
               router.push({
