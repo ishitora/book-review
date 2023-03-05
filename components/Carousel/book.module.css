@@ -1,5 +1,7 @@
 .swiper {
+  --swiper-theme-color: #2b87ae;
   width: min(100vw, 1200px);
+  max-width: 100%;
 }
 
 .swiper-slide {

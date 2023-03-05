@@ -5,7 +5,7 @@ export type TBookDetail = {
   title: string;
   image: string;
   authors: string[];
-  categories: string[];
+  category: string;
   publisher: string;
   ISBN?: string;
   publishedDate?: string;

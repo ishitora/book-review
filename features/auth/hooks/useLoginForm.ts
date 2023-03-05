@@ -6,7 +6,8 @@ import { useRouter } from 'next/router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { login } from '@/slices/accountSlice';
-import useOpenToast from '@/hooks/useOpenToast';
+
+import { openSnackbar } from '@/slices/snackbarSlice';
 
 type LoginData = {
   email: string;
@@ -21,7 +22,6 @@ const schema = yup.object({
 const useLoginForm = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const openToast = useOpenToast();
   const [isDisplayPassword, setIsDisplayPassword] = useBoolean();
 
   const {
@@ -43,7 +43,7 @@ const useLoginForm = () => {
         router.push('/');
       })
       .catch((error) => {
-        openToast('error', error.message || '發生錯誤');
+        dispatch(openSnackbar({ message: error.message || '發生錯誤' }));
       });
   });
 

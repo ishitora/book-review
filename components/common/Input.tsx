@@ -25,7 +25,7 @@ type Props = {
   name?: string;
   errorMessage?: string;
   noHelpText?: boolean;
-  size?: 'medium' | 'small';
+  fullWidth?: boolean;
 };
 
 const CustomInput = ({
@@ -42,11 +42,12 @@ const CustomInput = ({
   name,
   errorMessage,
   noHelpText,
+  fullWidth,
 }: Props) => {
   return (
     <Box>
       <OutlinedInput
-        fullWidth
+        {...(fullWidth ? { fullWidth: true } : {})}
         id={id}
         type={type}
         placeholder={placeholder}

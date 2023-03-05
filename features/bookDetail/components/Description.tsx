@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Box } from '@chakra-ui/react';
+import Box from '@mui/material/Box';
+
 import CustomButton from '@/components/common/CustomButton';
 
 type Props = { description: string };
@@ -33,16 +34,16 @@ const Description = ({ description }: Props) => {
           transition: 'max-height 0.5s',
           overflowY: 'hidden',
           position: 'relative',
-          '&:after': {
+          '&::after': {
             position: 'absolute',
             bottom: 0,
             height: '100%',
             width: '100%',
             content: '""',
             background:
-              isMoreThen4Lines &&
-              !isViewAll &&
-              'linear-gradient(to top,rgba(255,255,255, 1) 0%,rgba(255,255,255, 0) 40%)',
+              isMoreThen4Lines && !isViewAll
+                ? 'linear-gradient(to top,rgba(255,255,255, 1) 0%,rgba(255,255,255, 0) 40%)'
+                : 'transparent',
             pointerEvents: 'none',
           },
         }}
@@ -60,7 +61,7 @@ const Description = ({ description }: Props) => {
       </Box>
       {!isViewAll && isMoreThen4Lines && (
         <CustomButton
-          // variant="link"
+          variant="text"
           onClick={() => {
             setIsViewAll(true);
           }}

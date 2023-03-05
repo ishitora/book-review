@@ -1,25 +1,34 @@
 import React from 'react';
-import { Box, Avatar, Heading, Text } from '@chakra-ui/react';
+
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { RatingDisplay } from '@/components/Ratings/Rating';
 import type { TReview } from '@/types/review';
+
 const Review = ({ review }: { review: TReview }) => {
   return (
     <Box sx={{ borderBottom: '2px solid #ddd', padding: '20px' }}>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Avatar size="sm" />
+        <Avatar
+          alt="user icon"
+          src={review.user.avatar}
+          sx={{ marginRight: '12px' }}
+        ></Avatar>
         {review.user.name}
       </Box>
 
       <RatingDisplay rating={review.rating} />
       <Box sx={{ padding: '12px 0' }}>
-        {' '}
-        <Heading as="h4" size="md">
-          {review.title}
-        </Heading>
-        <Text>{review.content}</Text>
+        <Typography variant="h6">{review.title}</Typography>
+        <Typography
+          sx={{
+            whiteSpace: 'pre-line',
+          }}
+        >
+          {review.content}
+        </Typography>
       </Box>
-
-      {/* <Box>{review.likes}個人喜歡</Box> */}
     </Box>
   );
 };

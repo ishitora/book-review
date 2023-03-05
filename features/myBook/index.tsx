@@ -3,7 +3,11 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useAppSelector } from '@/hooks/redux';
 
-import { Stack, Box, Heading, Spinner } from '@chakra-ui/react';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+
+import CircularProgress from '@mui/material/CircularProgress';
 
 import History from './components/History';
 
@@ -13,16 +17,11 @@ const MyBook = () => {
   const myBooks = useAppSelector((state) => state.account.info?.myBooks || []);
 
   const curBook = myBooks.find((myBook) => myBook.book.id === id);
+
   if (!curBook) {
     return (
       <Box>
-        <Spinner
-          thickness="4px"
-          speed="0.65s"
-          emptyColor="gray.200"
-          color="primary.500"
-          size="xl"
-        />
+        <CircularProgress />
       </Box>
     );
   }
@@ -42,7 +41,6 @@ const MyBook = () => {
         <Stack
           sx={{
             marginRight: '40px',
-
             '@media (max-width:600px)': {
               marginRight: 0,
             },
@@ -65,7 +63,7 @@ const MyBook = () => {
               style={{ objectFit: 'cover' }}
             />
           </Box>
-          <Heading>{curBook.book.title}</Heading>
+          <Typography>{curBook.book.title}</Typography>
           <p>{curBook.book.authors}</p>
         </Stack>
         <History

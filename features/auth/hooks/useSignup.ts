@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { useForm } from 'react-hook-form';
+import { useAppDispatch } from '@/hooks/redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import accountServers from '@/servers/accountServers';
-import useOpenToast from '@/hooks/useOpenToast';
+import { openSnackbar } from '@/slices/snackbarSlice';
 
 type SigninData = {
   email: string;
@@ -37,8 +38,8 @@ const schema = yup
 
 const useSignup = () => {
   const [isSignup, setIsSignup] = useState(false);
-  const openToast = useOpenToast();
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const {
     handleSubmit,
     control,
@@ -62,7 +63,11 @@ const useSignup = () => {
       })
       .catch((error) => {
         if (error.response) {
-          openToast('error', error.response.data?.message || '發生錯誤');
+          dispatch(
+            openSnackbar({
+              message: error.response.data?.message || '發生錯誤',
+            })
+          );
         } else {
           console.error(error);
         }

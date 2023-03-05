@@ -1,13 +1,19 @@
 import React from 'react';
-import { Box, Text } from '@chakra-ui/react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 type Props = { children: React.ReactNode };
 
 const ErrorMessage = ({ children }: Props) => {
   return (
-    <Box h="18px">
-      <Text color="#ff0000" fontSize="12px">
+    <Box sx={{ height: '18px' }}>
+      <Typography
+        variant="caption"
+        sx={{
+          color: 'error.main',
+        }}
+      >
         {children}
-      </Text>
+      </Typography>
     </Box>
   );
 };

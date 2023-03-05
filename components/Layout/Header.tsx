@@ -1,21 +1,22 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
+import Box from '@mui/material/Box';
+import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-import { useRouter } from 'next/router';
-import Avatar from '@mui/material/Avatar';
 import SearchBar from '@/components/common/SearchBar';
-import { getAccount } from '@/slices/accountSlice';
+import CustomButton from '@/components/common/CustomButton';
 
 import { useSession, signOut } from 'next-auth/react';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { logout } from '@/slices/accountSlice';
-import CustomButton from '@/components/common/CustomButton';
-import Box from '@mui/material/Box';
 
-const Header = ({ toggle }: { toggle: () => void }) => {
+import { getAccount } from '@/slices/accountSlice';
+import { logout } from '@/slices/accountSlice';
+
+const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -99,9 +100,7 @@ const Header = ({ toggle }: { toggle: () => void }) => {
           <>
             <CustomButton
               startIcon={
-                <Avatar alt="user icon" src={account.info.avatar}>
-                  {account.info.name}
-                </Avatar>
+                <Avatar alt="user icon" src={account.info.avatar}></Avatar>
               }
               variant="text"
               onClick={handleClick}

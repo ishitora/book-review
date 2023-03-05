@@ -1,5 +1,4 @@
 import React from 'react';
-import { SkeletonText } from '@chakra-ui/react';
 import Skeleton from '@mui/material/Skeleton';
 import Box from '@mui/material/Box';
 

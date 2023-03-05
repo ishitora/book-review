@@ -1,7 +1,13 @@
 import React from 'react';
-import { Button, Stack, Box, Heading, Divider, Center } from '@chakra-ui/react';
+
+import { Center } from '@chakra-ui/react';
+
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
 import { MdOutlineModeStandby } from 'react-icons/md';
 import { bookshelfStatus } from '@/constants/constant';
+
 type Props = {
   status: 0 | 1 | 2;
   create_date: string;
@@ -12,9 +18,7 @@ type Props = {
 const History = ({ status, create_date, start_date, finish_date }: Props) => {
   return (
     <Box>
-      <Heading as="h3" size="lg">
-        {bookshelfStatus[status]}
-      </Heading>
+      <Typography variant="h5">{bookshelfStatus[status]}</Typography>
       <Box sx={{ display: 'flex', marginTop: '20px' }}>
         <Box
           sx={{

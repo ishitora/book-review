@@ -2,7 +2,9 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-import { Box, Stack } from '@chakra-ui/react';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+
 import { RatingDisplay } from '@/components/Ratings/Rating';
 import { TSearchBook } from '@/types/book';
 

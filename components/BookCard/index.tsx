@@ -1,9 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 
 import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
 
 const BookCard = ({ book }) => {
   const router = useRouter();
@@ -39,8 +41,9 @@ const BookCard = ({ book }) => {
       <Box
         sx={{
           width: '150px',
-          height: '220px',
+          height: '200px',
           position: 'relative',
+
           '&>img:hover': {
             filter: 'brightness(0.8)',
           },
@@ -51,7 +54,7 @@ const BookCard = ({ book }) => {
           alt={book.title}
           fill
           style={{
-            objectFit: 'cover',
+            objectFit: 'contain',
             cursor: 'pointer',
           }}
           onClick={() => {
@@ -59,8 +62,29 @@ const BookCard = ({ book }) => {
           }}
         />
       </Box>
-      <Link href={`/book/${book.id}`}>{book.title}</Link>
-      <p>{book.authors.map((author) => author)}</p>
+      <Link
+        sx={{
+          margin: '8px 0',
+        }}
+        underline="hover"
+        component={NextLink}
+        href={`/book/${book.id}`}
+      >
+        {book.title}
+      </Link>
+      <Typography
+        sx={{
+          display: 'box',
+          wordBreak: 'break-all',
+          maxHeight: '2.4em',
+          lineHeight: '1.2em',
+          overflow: 'hidden',
+          margin: 0,
+        }}
+        variant="body1"
+      >
+        {book.authors[0] || ''}
+      </Typography>
     </Box>
   );
 };

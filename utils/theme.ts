@@ -21,9 +21,20 @@ const theme = createTheme({
       paper: '#fffbff',
     },
   },
-  // typography: {
-  //   fontFamily: roboto.style.fontFamily,
-  // },
+  typography: {
+    h3: {
+      fontWeight: 500,
+    },
+    h4: {
+      fontWeight: 500,
+    },
+    h5: {
+      fontWeight: 500,
+    },
+    h6: {
+      fontWeight: 500,
+    },
+  },
 });
 
 export default theme;

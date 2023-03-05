@@ -1,20 +1,14 @@
 import React, { useEffect } from 'react';
-import {
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  useMediaQuery,
-  useBoolean,
-} from '@chakra-ui/react';
+import { useAppSelector, useAppDispatch } from '@/hooks/redux';
+import { closeSnackbar } from '@/slices/snackbarSlice';
+
+import Box from '@mui/material/Box';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 import Header from '@/components/Layout/Header';
 import Footer from '@/components/Layout/Footer';
-import SideBar from '@/components/Layout/SideBar';
-import { Box } from '@chakra-ui/react';
+
 import { useRouter } from 'next/router';
 
 type Props = {
@@ -23,32 +17,42 @@ type Props = {
 
 const Layout = (props: Props) => {
   const router = useRouter();
-  const [isMobile] = useMediaQuery('(max-width: 768px)', {
-    ssr: true,
-    fallback: true,
-  });
-  const [isOpen, setIsOpen] = useBoolean();
-  useEffect(() => {
-    setIsOpen.off();
-  }, [router.asPath, setIsOpen]);
+  const dispatch = useAppDispatch();
+  const snackbar = useAppSelector((state) => state.snackbar);
 
   if (router.asPath === '/login' || router.asPath === '/signup') {
     return (
-      <Box
-        sx={{
-          minHeight: '100vh',
-          flex: 1,
-          '&>div': {
+      <>
+        <Box
+          sx={{
             minHeight: '100vh',
-            padding: '40px',
-            '@media (max-width: 600px)': {
-              padding: '12px',
+            flex: 1,
+            '&>div': {
+              minHeight: '100vh',
+              padding: '40px',
+              '@media (max-width: 600px)': {
+                padding: '12px',
+              },
             },
-          },
-        }}
-      >
-        {props.children}
-      </Box>
+          }}
+        >
+          {props.children}
+        </Box>
+        <Snackbar
+          sx={{ minHeight: 0, padding: 'auto' }}
+          open={snackbar.open}
+          autoHideDuration={snackbar.autoHideDuration}
+          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+          onClose={() => {
+            console.log('關閉');
+            dispatch(closeSnackbar());
+          }}
+        >
+          <Alert severity={snackbar.severity} sx={{ width: '100%' }}>
+            {snackbar.message}
+          </Alert>
+        </Snackbar>
+      </>
     );
   }
 
@@ -69,9 +73,9 @@ const Layout = (props: Props) => {
       ) : (
         <SideBar />
       )} */}
-      <Header toggle={setIsOpen.toggle} />
+      <Header />
       <Box
-        as="main"
+        component="main"
         sx={{
           maxWidth: '100vw',
           flex: 1,

@@ -1,9 +1,15 @@
 import React from 'react';
 import NextLink from 'next/link';
-import { Box, Stack, Link, Text } from '@chakra-ui/react';
+
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
+import Stack from '@mui/material/Stack';
+
 import BookCard from './BookCard';
 import Pagination from '@/components/Pagination/index';
 import { TMyBook } from '@/types/book';
+
 type Props = {
   books: TMyBook[];
   page: number;
@@ -16,21 +22,20 @@ const BookList = ({ books, page, changePage }: Props) => {
   if (books.length === 0) {
     return (
       <Box sx={{ padding: '20px' }}>
-        <Text sx={{ textAlign: 'center' }}>
-          {' '}
+        <Typography variant="body1" sx={{ textAlign: 'center' }}>
           書櫃裡還沒有書籍，前往
           <Link
             sx={{
               fontSize: '16px',
               fontWeight: 600,
             }}
-            as={NextLink}
+            component={NextLink}
             href="/search"
           >
             探索頁面
           </Link>
           尋找書本
-        </Text>
+        </Typography>
       </Box>
     );
   }

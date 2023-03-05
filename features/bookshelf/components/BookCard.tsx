@@ -1,12 +1,15 @@
 import React from 'react';
 import Image from 'next/image';
 import NextLink from 'next/link';
-import { Stack, Box, Link } from '@chakra-ui/react';
+
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Link from '@mui/material/Link';
 import BookStatusDialog from '@/components/BookStatusDialog/index';
 import { bookshelfStatus } from '@/constants/constant';
 import { RatingDisplay } from '@/components/Ratings/Rating';
 import { useAppSelector } from '@/hooks/redux';
-import { MdModeEditOutline } from 'react-icons/md';
+
 import { TMyBook } from '@/types/book';
 import { useRouter } from 'next/router';
 import CustomButton from '@/components/common/CustomButton';
@@ -34,7 +37,7 @@ const BookCard = ({ info }: Props) => {
       }}
     >
       <Stack
-        align="center"
+        alignItems="center"
         sx={{
           '&>a': {
             display: '-webkit-box',
@@ -50,7 +53,7 @@ const BookCard = ({ info }: Props) => {
         <Box
           sx={{
             width: '150px',
-            height: '160px',
+            height: '200px',
             position: 'relative',
             '&>img:hover': {
               filter: 'brightness(0.8)',
@@ -74,9 +77,10 @@ const BookCard = ({ info }: Props) => {
           sx={{
             fontSize: '16px',
             fontWeight: 500,
-            color: '#000',
+            margin: '8px 0',
           }}
-          as={NextLink}
+          underline="hover"
+          component={NextLink}
           href={`/myBooks/${book.id}`}
         >
           {book.title}
@@ -86,9 +90,12 @@ const BookCard = ({ info }: Props) => {
           id={book.id}
           renderButton={(onClick) => (
             <CustomButton
-              //  rightIcon={<MdModeEditOutline />}
-              // variant="outline"
+              variant="outlined"
               onClick={onClick}
+              sx={{
+                width: '120px',
+                padding: '3px 10px',
+              }}
             >
               {bookshelfStatus[status]}
             </CustomButton>

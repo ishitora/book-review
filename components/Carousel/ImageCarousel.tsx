@@ -10,7 +10,7 @@ import 'swiper/css/pagination';
 
 import { useMediaQuery } from '@mui/material';
 
-import styles from './Carousel.module.css';
+import styles from './image.module.css';
 
 const Carousel = () => {
   const isMobile = useMediaQuery('(max-width: 600px)', { noSsr: true });
@@ -27,13 +27,16 @@ const Carousel = () => {
       className={styles.swiper}
     >
       <SwiperSlide className={styles['swiper-slide']}>
-        <img src={isMobile ? '/image/mobile_1.png' : '/image/main_1.png'} />
+        <img
+          src={isMobile ? '/image/mobile_1.png' : '/image/main_1.png'}
+          alt="image1"
+        />
       </SwiperSlide>
       <SwiperSlide className={styles['swiper-slide']}>
-        <img src={isMobile ? '/image/mobile_1.png' : '/image/main_1.png'} />
-      </SwiperSlide>
-      <SwiperSlide className={styles['swiper-slide']}>
-        <img src={isMobile ? '/image/mobile_1.png' : '/image/main_1.png'} />
+        <img
+          src={isMobile ? '/image/mobile_2.png' : '/image/main_2.png'}
+          alt="image2"
+        />
       </SwiperSlide>
     </Swiper>
   );

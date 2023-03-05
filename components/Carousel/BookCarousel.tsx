@@ -8,6 +8,7 @@ import 'swiper/css/navigation';
 
 import BookCard from '@/components/BookCard';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 import styles from './book.module.css';
 
@@ -16,17 +17,21 @@ const BookCarousel = ({ layout }) => {
     <Box
       sx={{
         width: 'min(100vw, 1200px)',
+        maxWidth: '100%',
         padding: '20px 0',
         display: 'flex',
         flexDirection: 'column',
         margin: '0 auto',
-        '&>h3': {
-          fontSize: '24px',
-          marginBottom: '40px',
-        },
       }}
     >
-      <h3>{layout.title}</h3>
+      <Typography
+        sx={{
+          marginBottom: '32px',
+        }}
+        variant="h5"
+      >
+        {layout.title}
+      </Typography>
 
       <Swiper
         loop={true}
@@ -49,11 +54,6 @@ const BookCarousel = ({ layout }) => {
         modules={[Navigation]}
         className={styles.swiper}
       >
-        {layout.books.map((book) => (
-          <SwiperSlide key={book.id} className={styles['swiper-slide']}>
-            <BookCard book={book} />
-          </SwiperSlide>
-        ))}
         {layout.books.map((book) => (
           <SwiperSlide key={book.id} className={styles['swiper-slide']}>
             <BookCard book={book} />

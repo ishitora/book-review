@@ -1,14 +1,16 @@
 import React from 'react';
-import { Box } from '@chakra-ui/react';
+import Box from '@mui/material/Box';
 
 const Footer = () => {
   return (
     <Box
-      as="footer"
-      h="70"
-      display="flex"
-      alignItems="center"
-      bgColor="#f2f2f2"
+      component="footer"
+      sx={{
+        height: '70px',
+        display: 'flex',
+        alignItems: 'center',
+        backgroundColor: '#f2f2f2',
+      }}
     >
       footer
     </Box>

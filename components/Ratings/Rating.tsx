@@ -1,11 +1,11 @@
 import React from 'react';
-import { Box } from '@chakra-ui/react';
+
 import { useFormContext } from 'react-hook-form';
 import { MdStarOutline, MdOutlineStar, MdStarHalf } from 'react-icons/md';
 import ErrorMessage from '@/components/common/ErrorMessage';
 import { calculateAverageRating } from './utils/index';
-
 import type { TRating } from './types';
+import Box from '@mui/material/Box';
 
 type Props = { name: string; errorMessage?: string | undefined };
 const scoreArr = [
@@ -24,6 +24,7 @@ const Rating = ({ name, errorMessage = '' }: Props) => {
       <Box
         sx={{
           display: 'flex',
+          alignItems: 'center',
         }}
       >
         <Box

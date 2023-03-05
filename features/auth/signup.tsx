@@ -1,9 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Box, Heading, Text } from '@chakra-ui/react';
-import { MdVpnKey, MdMail, MdAccountCircle } from 'react-icons/md';
 
+import { MdVpnKey, MdMail, MdAccountCircle } from 'react-icons/md';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import Input from '@/components/common/Input';
 import { Controller } from 'react-hook-form';
 import CustomButton from '@/components/common/CustomButton';
@@ -14,8 +15,8 @@ const Signup = () => {
     useSignup();
   return (
     <Box
-      bgColor="gray.100"
       sx={{
+        backgroundColor: '#f8f8f8',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -23,7 +24,7 @@ const Signup = () => {
       }}
     >
       <Box
-        as="form"
+        component="form"
         sx={{
           flex: '0 0 350px',
           height: '650px',
@@ -31,7 +32,7 @@ const Signup = () => {
           flexDirection: 'column',
           backgroundColor: 'white',
           borderRadius: '20px',
-          padding: '30px 60px',
+          padding: '30px',
           '&>* + *': {
             marginTop: '12px',
           },
@@ -58,24 +59,24 @@ const Signup = () => {
               height={200}
               alt="signup success"
             />
-            <Heading
-              as="h3"
-              size="md"
-              colorScheme="primary"
+            <Typography
+              variant="h5"
               sx={{
+                color: 'primary.main',
                 marginBottom: '20px',
                 textAlign: 'center',
               }}
             >
               註冊成功
-            </Heading>
-            <Text
+            </Typography>
+            <Typography
+              variant="body1"
               sx={{
                 textAlign: 'center',
               }}
             >
               感謝您的註冊，請至登入頁面登入
-            </Text>
+            </Typography>
             <CustomButton
               sx={{
                 marginTop: 'auto',
@@ -88,16 +89,13 @@ const Signup = () => {
           </>
         ) : (
           <>
-            <Heading
-              as="h3"
-              size="lg"
-              colorScheme="primary"
+            <Typography
               sx={{
                 marginBottom: '20px',
               }}
             >
               加入book review
-            </Heading>
+            </Typography>
             <Box>
               <Controller
                 name="email"
@@ -105,6 +103,7 @@ const Signup = () => {
                 rules={{ required: true }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <Input
+                    fullWidth
                     leftElement={{
                       ele: <MdMail style={{ fontSize: '24px' }} />,
                     }}
@@ -125,6 +124,7 @@ const Signup = () => {
                 rules={{ required: true }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <Input
+                    fullWidth
                     leftElement={{
                       ele: <MdAccountCircle style={{ fontSize: '24px' }} />,
                     }}
@@ -145,6 +145,7 @@ const Signup = () => {
                 rules={{ required: true }}
                 render={({ field: { onChange, onBlur, value, name } }) => (
                   <Input
+                    fullWidth
                     leftElement={{
                       ele: <MdVpnKey style={{ fontSize: '24px' }} />,
                     }}
@@ -167,6 +168,7 @@ const Signup = () => {
                 rules={{ required: true }}
                 render={({ field: { onChange, onBlur, value, name } }) => (
                   <Input
+                    fullWidth
                     leftElement={{
                       ele: <MdVpnKey style={{ fontSize: '24px' }} />,
                     }}

@@ -1,7 +1,10 @@
 .swiper {
+  --swiper-theme-color: #2b87ae;
   width: min(100vw, 1200px);
   height: min(40vw, 480px);
+  max-width: 100%;
 }
+
 @media (max-width: 600px) {
   .swiper {
     height: min(80vw, 480px);

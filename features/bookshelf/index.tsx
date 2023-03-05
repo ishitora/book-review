@@ -1,6 +1,11 @@
 import React, { useState, useMemo } from 'react';
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Box } from '@chakra-ui/react';
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 import { useAppSelector } from '@/hooks/redux';
+
+import Box from '@mui/material/Box';
 
 import BookList from './components/BookList';
 
@@ -15,7 +20,13 @@ const Bookshelf = () => {
     ];
   }, [myBooks]);
 
+  const [type, setType] = React.useState('0');
   const [page, setPage] = useState(1);
+
+  const handleChange = (event: React.SyntheticEvent, newType: string) => {
+    setType(newType);
+    setPage(1);
+  };
 
   const changePage = (p: number) => {
     setPage(p);
@@ -23,47 +34,40 @@ const Bookshelf = () => {
 
   return (
     <Box sx={{ flex: 1 }}>
-      <Tabs
-        variant="soft-rounded"
-        colorScheme="primary"
-        onChange={() => setPage(1)}
-      >
-        <TabList
-          sx={{
-            width: '100%',
-            display: 'inline-flex',
-            justifyContent: 'center',
-          }}
-        >
-          <Tab>全部書籍</Tab>
-          <Tab isDisabled={!(wantToReadBooks.length > 0)}>想讀</Tab>
-          <Tab isDisabled={!(readingBooks.length > 0)}>閱讀中</Tab>
-          <Tab isDisabled={!(readBooks.length > 0)}>已完成</Tab>
-        </TabList>
-
-        <TabPanels>
-          <TabPanel>
-            <BookList books={myBooks} page={page} changePage={changePage} />
-          </TabPanel>
-          <TabPanel>
-            <BookList
-              books={wantToReadBooks}
-              page={page}
-              changePage={changePage}
+      <TabContext value={type}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <TabList onChange={handleChange} aria-label="書櫃" centered>
+            <Tab label="全部書籍" value="0" />
+            <Tab
+              disabled={!(wantToReadBooks.length > 0)}
+              label="想讀"
+              value="1"
             />
-          </TabPanel>
-          <TabPanel>
-            <BookList
-              books={readingBooks}
-              page={page}
-              changePage={changePage}
+            <Tab
+              disabled={!(readingBooks.length > 0)}
+              label="閱讀中"
+              value="2"
             />
-          </TabPanel>
-          <TabPanel>
-            <BookList books={readBooks} page={page} changePage={changePage} />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+            <Tab disabled={!(readBooks.length > 0)} label="已完成" value="3" />
+          </TabList>
+        </Box>
+        <TabPanel value="0">
+          <BookList books={myBooks} page={page} changePage={changePage} />
+        </TabPanel>
+        <TabPanel value="1">
+          <BookList
+            books={wantToReadBooks}
+            page={page}
+            changePage={changePage}
+          />
+        </TabPanel>
+        <TabPanel value="2">
+          <BookList books={readingBooks} page={page} changePage={changePage} />
+        </TabPanel>
+        <TabPanel value="3">
+          <BookList books={readBooks} page={page} changePage={changePage} />
+        </TabPanel>
+      </TabContext>
     </Box>
   );
 };

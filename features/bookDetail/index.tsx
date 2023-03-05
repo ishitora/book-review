@@ -1,17 +1,25 @@
 import React from 'react';
 import Image from 'next/image';
 import useSWR from 'swr';
-import { Box, Text, Stack, Heading, Divider } from '@chakra-ui/react';
+
 import { useAppSelector } from '@/hooks/redux';
 
-import AddReviewModal from '@/components/AddReviewModal';
-import BookStatusDialog from '../../components/BookStatusDialog';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+
+import AddReviewDialog from '@/components/AddReviewDialog';
+import BookStatusDialog from '@/components/BookStatusDialog';
 import Description from './components/Description';
 import Review from '@/components/common/Review';
 import Ratings from '@/components/Ratings/Ratings';
+import CustomButton from '@/components/common/CustomButton';
+import UnderlineTitle from '@/components/common/UnderlineTitle';
+
+import { CATEGORIES } from '@/constants/constant';
 
 import reviewServers from '@/servers/reviewServers';
-import CustomButton from '@/components/common/CustomButton';
+
 import type { TBookDetail } from '@/types/book';
 import type { TReview } from '@/types/review';
 
@@ -68,9 +76,11 @@ const BookDetail = ({ book }: { book: TBookDetail }) => {
               />
             </Box>
             <BookStatusDialog id={book.id} status={status} />
-            <AddReviewModal
+            <AddReviewDialog
               renderButton={(onClick) => (
-                <CustomButton onClick={onClick}>新增評論</CustomButton>
+                <CustomButton variant="outlined" onClick={onClick}>
+                  新增評論
+                </CustomButton>
               )}
               afterSubmit={() => {
                 mutate();
@@ -89,43 +99,37 @@ const BookDetail = ({ book }: { book: TBookDetail }) => {
           },
         }}
       >
-        <Heading as="h2" size="2xl">
-          {book.title}
-        </Heading>
+        <Typography variant="h4">{book.title}</Typography>
         <Stack sx={{ gridArea: 'info' }}>
-          <Text>
+          <Typography>
+            作者:
             {book.authors.map((author) => (
               <a key={author}>{author}</a>
             ))}
-          </Text>
-          <Text>出版社:{book.publisher}</Text>
-          {book.ISBN && <Text> ISBN:{book.ISBN}</Text>}
-          {book.publishedDate && <Text>出版日期:{book.publishedDate}</Text>}
-          {book.categories?.length > 0 && (
-            <Text>
-              類別:
-              {book.categories.map((category) => (
-                <a key={category}>{category}</a>
-              ))}
-            </Text>
+          </Typography>
+          <Typography>出版社:{book.publisher}</Typography>
+          {book.ISBN && <Typography> ISBN:{book.ISBN}</Typography>}
+          {book.publishedDate && (
+            <Typography>出版日期:{book.publishedDate}</Typography>
           )}
-          {book.price && <Text>建議售價:{book.price}</Text>}
-          {book.pageCount && <Text> 頁數:{book.pageCount}</Text>}
+          {book.category && (
+            <Typography>
+              分類:{CATEGORIES[book.category] || book.category}
+            </Typography>
+          )}
+          {/* {book.price && <Typography>建議售價:{book.price}</Typography>} */}
+          {book.pageCount && <Typography> 頁數:{book.pageCount}</Typography>}
         </Stack>
         {/* <Box sx={{ gridArea: 'other' }}>0人想看 0人正在閱讀 0人已看過</Box> */}
         <Box sx={{ gridArea: 'description' }}>
           <Box sx={{ padding: '20px 0' }}>
-            <Heading as="h4" size="md">
-              內容簡介
-            </Heading>
+            <UnderlineTitle variant="h5">內容簡介</UnderlineTitle>
             <Description description={book.description} />
           </Box>
         </Box>
 
         <Box sx={{ gridArea: 'rating' }}>
-          <Heading as="h4" size="md">
-            評分
-          </Heading>
+          <UnderlineTitle variant="h5">評分</UnderlineTitle>
           <Ratings
             ratings={
               reviews
@@ -135,16 +139,15 @@ const BookDetail = ({ book }: { book: TBookDetail }) => {
           />
         </Box>
         <Box sx={{ gridArea: 'reviews' }}>
-          <Heading
-            as="h4"
-            size="md"
+          <UnderlineTitle
+            variant="h5"
             sx={{
               margin: '12px 0',
             }}
           >
             評論
-          </Heading>
-          <Divider />
+          </UnderlineTitle>
+
           <Box sx={{ '&>* + *': { marginTop: '12px' }, padding: '12px' }}>
             {reviews &&
               reviews.map((review) => (

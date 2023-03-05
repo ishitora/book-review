@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Text } from '@chakra-ui/react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import type { TRating } from './types';
 import { calculateRatingsCounts, calculateAverageRating } from './utils/index';
 import { RatingDisplay } from './Rating';
@@ -27,7 +28,7 @@ const RatingHistogram = ({
           width: '40px',
         }}
       >
-        <Text>{`${star}星:`}</Text>
+        <Typography variant="body1">{`${star}星:`}</Typography>
       </Box>
       <Box
         sx={{
@@ -54,7 +55,9 @@ const RatingHistogram = ({
       </Box>
       {total > 0 && (
         <Box sx={{ width: '50px' }}>
-          <Text>{`${Math.round((ratingCount / total) * 100)}%`}</Text>
+          <Typography variant="body1">{`${Math.round(
+            (ratingCount / total) * 100
+          )}%`}</Typography>
         </Box>
       )}
     </Box>
@@ -69,11 +72,11 @@ const Ratings = ({ ratings = [] }: { ratings: TRating[] }) => {
     <Box>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <RatingDisplay rating={ratings} size={36} />
-        <Text fontSize="20px">
+        <Typography variant="body1">
           {ratings.length > 0 ? `${averageRating.toFixed(1)}分` : '尚無評分'}
-        </Text>
+        </Typography>
       </Box>
-      <Text fontSize="20px">{ratingsCounts.total}個評分</Text>
+      <Typography variant="subtitle1">{ratingsCounts.total}個評分</Typography>
 
       {ratingsCounts.ratings.map((ratingCount, index) => (
         <RatingHistogram
