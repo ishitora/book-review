@@ -9,8 +9,8 @@ const userExtractor = async (req, res, next) => {
 
     if (
       (!req?.cookies?.token || !req?.cookies?.token.startsWith('Bearer')) &&
-      (!req?.cookies?.['next-auth.session-token'] ||
-        !req?.cookies?.['__Secure-next-auth.session-token'])
+      !req?.cookies?.['next-auth.session-token'] &&
+      !req?.cookies?.['__Secure-next-auth.session-token']
     ) {
       return res.status(401).json({ message: 'token missing' });
     }
