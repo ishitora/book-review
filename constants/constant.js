@@ -20,6 +20,7 @@ export const CATEGORIES = {
   'Young Adult Fiction': '青少年小說',
   'Crafts & Hobbies': '手工藝和收藏',
   'Self-Help': '自我成長',
+  'Juvenile Fiction': '少年小說',
 };
 
 export const bookshelfStatus = {

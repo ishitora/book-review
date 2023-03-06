@@ -27,6 +27,7 @@ const SearchSkeleton = () => {
           },
         }}
         variant="rectangular"
+        animation="wave"
       />
       <Box>
         {arr.map((_, index) => (
@@ -41,7 +42,7 @@ const SearchSkeleton = () => {
             key={index}
           >
             <Box sx={{ flex: '0 0 100px', marginRight: '12px' }}>
-              <Skeleton variant="rectangular" height={150} />
+              <Skeleton variant="rectangular" animation="wave" height={150} />
             </Box>
             <Box
               sx={{
@@ -51,10 +52,22 @@ const SearchSkeleton = () => {
                 },
               }}
             >
-              <Skeleton height="30px" width="180px" />
-              <Skeleton height="20px" width="180px" />
+              <Skeleton
+                height="30px"
+                animation="wave"
+                sx={{ width: '100%', maxWidth: '400px' }}
+              />
+              <Skeleton
+                height="20px"
+                animation="wave"
+                sx={{ width: '100%', maxWidth: '800px' }}
+              />
 
-              <Skeleton height="20px" width="100px" />
+              <Skeleton
+                height="20px"
+                animation="wave"
+                sx={{ width: '100%', maxWidth: '800px' }}
+              />
             </Box>
           </Box>
         ))}

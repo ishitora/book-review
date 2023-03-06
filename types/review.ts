@@ -1,6 +1,7 @@
 export type TReview = {
   id: string;
   user: { name: string; avatar?: string };
+  create_date: string;
   title: string;
   rating: number;
   content: string;

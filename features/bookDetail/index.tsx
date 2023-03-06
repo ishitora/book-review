@@ -145,14 +145,35 @@ const BookDetail = ({ book }: { book: TBookDetail }) => {
               margin: '12px 0',
             }}
           >
-            評論
+            書評
           </UnderlineTitle>
 
           <Box sx={{ '&>* + *': { marginTop: '12px' }, padding: '12px' }}>
-            {reviews &&
+            {reviews && reviews?.length > 0 ? (
               reviews.map((review) => (
                 <Review key={review.id} review={review} />
-              ))}
+              ))
+            ) : (
+              <Typography>
+                目前還沒有書評，成為第一個
+                <AddReviewDialog
+                  renderButton={(onClick) => (
+                    <CustomButton
+                      variant="text"
+                      onClick={onClick}
+                      sx={{ padding: '0', fontSize: '1rem', border: 'none' }}
+                    >
+                      發表書評
+                    </CustomButton>
+                  )}
+                  afterSubmit={() => {
+                    mutate();
+                  }}
+                  id={book.id}
+                />
+                的人
+              </Typography>
+            )}
           </Box>
         </Box>
       </Box>

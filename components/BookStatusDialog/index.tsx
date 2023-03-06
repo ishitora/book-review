@@ -55,18 +55,21 @@ const BookStatusDialog = ({ id, status, renderButton }: Props) => {
         <DialogContent sx={{ width: '300px' }}>
           <Stack spacing="16px">
             <CustomButton
+              round
               onClick={handleClick(0)}
               variant={status === 0 ? 'contained' : 'outlined'}
             >
               想讀
             </CustomButton>
             <CustomButton
+              round
               onClick={handleClick(1)}
               variant={status === 1 ? 'contained' : 'outlined'}
             >
               正在閱讀
             </CustomButton>
             <CustomButton
+              round
               onClick={handleClick(2)}
               variant={status === 2 ? 'contained' : 'outlined'}
             >
@@ -74,6 +77,7 @@ const BookStatusDialog = ({ id, status, renderButton }: Props) => {
             </CustomButton>
             {typeof status === 'number' && (
               <CustomButton
+                round
                 onClick={handleDeleteOpen}
                 error={true}
                 variant="outlined"

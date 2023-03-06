@@ -2,7 +2,6 @@ import nc from 'next-connect';
 import dbConnect from '@/utils/dbConnect';
 import Book from '@/models/Book';
 import userExtractor from '@/middlewares/userExtractor';
-import { format } from 'date-fns';
 
 import Review from '@/models/Review';
 

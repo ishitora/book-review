@@ -1,13 +1,12 @@
 import React from 'react';
-import NextLink from 'next/link';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 
-import BookCard from './BookCard';
 import Pagination from '@/components/Pagination/index';
+import BookCard from './BookCard';
+
 import { TMyBook } from '@/types/book';
 
 type Props = {
@@ -23,18 +22,7 @@ const BookList = ({ books, page, changePage }: Props) => {
     return (
       <Box sx={{ padding: '20px' }}>
         <Typography variant="body1" sx={{ textAlign: 'center' }}>
-          書櫃裡還沒有書籍，前往
-          <Link
-            sx={{
-              fontSize: '16px',
-              fontWeight: 600,
-            }}
-            component={NextLink}
-            href="/search"
-          >
-            探索頁面
-          </Link>
-          尋找書本
+          書櫃裡還沒有書籍
         </Typography>
       </Box>
     );

@@ -139,7 +139,12 @@ const Header = () => {
               >
                 我的書櫃
               </MenuItem>
-              <MenuItem onClick={handleClose}>個人資料</MenuItem>
+              <MenuItem disabled onClick={handleClose}>
+                我的評論
+              </MenuItem>
+              <MenuItem disabled onClick={handleClose}>
+                新增書籍
+              </MenuItem>
               <MenuItem
                 onClick={() => {
                   dispatch(logout());

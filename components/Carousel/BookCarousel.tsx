@@ -10,6 +10,7 @@ import BookCard from '@/components/BookCard';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
+import UnderlineTitle from '@/components/common/UnderlineTitle';
 import styles from './book.module.css';
 
 const BookCarousel = ({ layout }) => {
@@ -24,14 +25,14 @@ const BookCarousel = ({ layout }) => {
         margin: '0 auto',
       }}
     >
-      <Typography
+      <UnderlineTitle
         sx={{
           marginBottom: '32px',
         }}
         variant="h5"
       >
         {layout.title}
-      </Typography>
+      </UnderlineTitle>
 
       <Swiper
         loop={true}

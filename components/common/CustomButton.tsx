@@ -76,6 +76,7 @@ const styles = {
 type CustomButtonProps = Omit<ButtonProps, 'variant'> & {
   error?: boolean;
   variant?: 'contained' | 'common' | 'outlined' | 'text';
+  round?: boolean;
 };
 
 const getStyle = (variant, error = false) => {
@@ -85,7 +86,7 @@ const getStyle = (variant, error = false) => {
 };
 
 const CustomButton = (props: CustomButtonProps) => {
-  const { onClick, children, variant, sx = {}, error, ...rest } = props;
+  const { onClick, children, variant, sx = {}, error, round, ...rest } = props;
 
   return (
     <Button
@@ -97,7 +98,11 @@ const CustomButton = (props: CustomButtonProps) => {
           padding: '8px 12px',
         },
         getStyle(variant, error),
-
+        round
+          ? {
+              borderRadius: '20px',
+            }
+          : {},
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}
       {...rest}
